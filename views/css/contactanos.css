@@ -1,0 +1,22 @@
+/* Estilo de la sección de contacto */
+.contact-section {
+    background-color: #343a40;
+  }
+  
+  .contact-section .card {
+    border-radius: 10px;
+    border: none;
+  }
+  
+  .contact-section .card-body hr {
+    margin: 10px 0;
+  }
+  
+  .contact-section a {
+    transition: color 0.3s ease;
+  }
+  
+  .contact-section a:hover {
+    color: #ffc107;
+  }
+  
