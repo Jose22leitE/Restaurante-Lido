@@ -22,3 +22,4 @@ class ViewModel {
 // Ejemplo de uso
 const viewModel = new ViewModel();
 viewModel.EncontrarVista('nombre_del_archivo');
+   
