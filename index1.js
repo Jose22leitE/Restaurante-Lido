@@ -46,7 +46,7 @@ app.post("/register", async (req, res) => {
     Edad
   );
   if (isRegister !== true) {
-    res.status(400).send(`Errores de validación:\n${isRegister}`);
+    res.status(400).send(isRegister);
   } else {
     res.send("Usuario registrado exitosamente");
   }
@@ -56,7 +56,7 @@ app.post("/login", async (req, res) => {
   const { correo, Contraseña } = req.body;
   const isUser = await User.loginUsuario(correo, Contraseña);
   if (typeof isUser === "string") {
-    res.status(400).send(`Errores de validación: ${isUser}`);
+    res.status(400).send(isUser);
   } else {
     res.send(`Sesión iniciada correctamente, Bienvenido ${isUser.nombre}`);
   }

@@ -12,6 +12,18 @@ class User {
         return isValid;
       }
 
+      // Búsqueda del usuario
+      let user = await db.collection("Usuario").where("email", "==", correo).get();
+      if (!user.empty) {
+        return "Usuario ya registrado";
+      }
+
+      // Búsqueda del usuario
+      user = await db.collection("Usuario").where("telefono", "==", Telefono).get();
+      if (!user.empty) {
+        return "Usuario ya registrado";
+      }
+
       // Creación del id
       const id = crypto.randomBytes(16).toString("hex");
 
