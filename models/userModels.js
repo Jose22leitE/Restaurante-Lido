@@ -7,13 +7,7 @@ class User {
   static async registroUsuario(name, Contraseña, Telefono, correo, Edad) {
     try {
       // Validación de datos
-      const isValid = mainModels.Validation(1, {
-        name,
-        Contraseña,
-        Telefono,
-        correo,
-        Edad,
-      });
+      const isValid = mainModels.Validation(1, { name, Contraseña, Telefono, correo, Edad });
       if (isValid !== true) {
         return isValid;
       }
@@ -33,29 +27,48 @@ class User {
         edad: Edad,
         rol: "cliente",
       });
-      console.log("Documento creado exitosamente!");
+      
+      return true;
     } catch (error) {
-      console.error("Error al crear el documento:", error);
+      return "Error al crear el documento:", error;
     }
   }
 
-  static async buscarUsuarioPorCorreo(correo) {
+  static async loginUsuario(correo, Contraseña) {
     try {
-      const querySnapshot = await db.collection("Usuario").where("email", "==", correo).get();
-      if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0];
-        console.log("Usuario encontrado:", userDoc.data());
-        return userDoc.data();
-      } else {
-        console.log("No se encontró el usuario.");
-        return null;
+      // Validación de datos
+      const isValid = mainModels.Validation(2, { correo, Contraseña });
+      if (isValid !== true) {
+        return isValid;
       }
+
+
+      // Búsqueda del usuario
+      const user = await db.collection("Usuario").where("email", "==", correo).get();
+      if (user.empty) {
+        return "Usuario no encontrado";
+      }
+
+
+      // Verificación de la contraseña
+      const userData = user.docs[0].data();
+      const isMatch = await bcrypt.compareSync(Contraseña, userData.contraseña);
+      if (!isMatch) {
+        return true;
+      }
+
+      const Usuario = {
+        nombre: userData.nombre,
+        email: userData.email,
+        telefono: userData.telefono,
+        edad: userData.edad,
+        rol: userData.rol,
+      }
+      return Usuario;
     } catch (error) {
-      console.error("Error al buscar el usuario:", error);
-      throw error;
+      return "Error al buscar el usuario:", error;
     }
   }
 }
-
 
 module.exports = User;

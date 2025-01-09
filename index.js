@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const User = require("./models/userModels.js");
+const { object, string } = require("zod");
 
 const app = express();
 const port = 3000;
@@ -15,19 +16,9 @@ app.set("views", path.join(__dirname, "views"));
 // Configura la carpeta 'view/css' para servir archivos estáticos
 app.use("/css", express.static(path.join(__dirname, "views/css")));
 
-// Middleware para autenticación y roles
-const isAuthenticated = (req, res, next) => {
-  // Aquí podrías validar sesiones, cookies o JWT
-  if (req.query.auth === "true") {
-    // Ejemplo básico
-    return next();
-  }
-  res.redirect("/login");
-};
 
 const isAdmin = (req, res, next) => {
   if (req.query.admin === "true") {
-    // Ejemplo con query params
     return next();
   }
   res.status(403).render("403", { title: "Acceso denegado" });
@@ -36,7 +27,7 @@ const isAdmin = (req, res, next) => {
 // Rutas públicas
 app.get("/:view?", (req, res) => {
   const view = req.params.view || "home";
-  const publicViews = ["home", "contacto", "menu", "reserva"];
+  const publicViews = ["home", "contacto", "menu", "reserva","login"];
 
   if (publicViews.includes(view)) {
     res.render(view, { title: view.charAt(0).toUpperCase() + view.slice(1) });
@@ -46,41 +37,31 @@ app.get("/:view?", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-    const { name, Contraseña, Telefono, correo, Edad } = req.body;
-  
-    const isRegister = await User.registroUsuario(
-      name,
-      Contraseña,
-      Telefono,
-      correo,
-      Edad
-    );
-  
-    if (isRegister !== true) {
-      res.status(400).send(isRegister);
-    } else {
-      res.send("Usuario registrado exitosamente");
-    }
-  });
-  
-
-// Rutas protegidas (requieren autenticación)
-app.get("/dashboard", isAuthenticated, isAdmin, (req, res) => {
-  res.render("dashboard", { title: "Panel de Administración" });
+  const { name, Contraseña, Telefono, correo, Edad } = req.body;
+  const isRegister = await User.registroUsuario(
+    name,
+    Contraseña,
+    Telefono,
+    correo,
+    Edad
+  );
+  if (isRegister !== true) {
+    res.status(400).send(`Errores de validación:\n${isRegister}`);
+  } else {
+    res.send("Usuario registrado exitosamente");
+  }
 });
 
-app.get("/gestion-menu", isAuthenticated, isAdmin, (req, res) => {
-  res.render("gestion-menu", { title: "Gestión de Menú" });
+app.post("/login", async (req, res) => {
+  const { correo, Contraseña } = req.body;
+  const isUser = await User.loginUsuario(correo, Contraseña);
+  if (typeof isUser === "string") {
+    res.status(400).send(`Errores de validación: ${isUser}`);
+  } else {
+    res.send(`Sesión iniciada correctamente, Bienvenido ${isUser.nombre}`);
+  }
 });
 
-app.get("/gestion-reservas", isAuthenticated, isAdmin, (req, res) => {
-  res.render("gestion-reservas", { title: "Gestión de Reservas" });
-});
-
-// Página de inicio de sesión
-app.get("/login", (req, res) => {
-  res.render("login", { title: "Inicio de sesión" });
-});
 
 // Middleware de manejo de errores genéricos
 app.use((err, req, res, next) => {
