@@ -1,4 +1,4 @@
-/************************* General Styles ************************/
+/* General Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@ body, html {
   font-weight: 400 !important;
 }
 
-/*********************** Inicio de los estilos de Barra de Navegación ***********************/
+/* Navbar Styles */
 .navbar {
   z-index: 10;
   padding: 20px 0;
@@ -37,11 +37,9 @@ body, html {
   background-color: #f7f6f3;
   color: #000;
 }
-/*********************** Final de los estilos de Barra de Navegación ***********************/
 
-/************************* Inicio de los estilos del Home ************************/
- /* Hero Section */
- .hero-text {
+/* Hero Section */
+.hero-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -225,6 +223,7 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 margin-top: 10px;
 text-transform: uppercase;
 font-weight: 600;
+<<<<<<< HEAD:public/css/style.css
 }
 
 .menu-tabs {
@@ -645,3 +644,6 @@ main {
   color: #ffc107;
 }
 /*********************** Final de los estilos de Contactanos ********************/
+=======
+}
+>>>>>>> ab202d279720884f0913e82979eafd95750e7244:views/css/style.css
