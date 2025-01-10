@@ -65,3 +65,32 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+
+//rutas de POST
+
+app.post("/register", async (req, res) => {
+  const { name, Contraseña, Telefono, correo, Edad } = req.body;
+  const isRegister = await User.registroUsuario(
+    name,
+    Contraseña,
+    Telefono,
+    correo,
+    Edad
+  );
+  if (isRegister !== true) {
+    res.status(400).send(isRegister);
+  } else {
+    res.send("Usuario registrado exitosamente");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { correo, Contraseña } = req.body;
+  const isUser = await User.loginUsuario(correo, Contraseña);
+  if (typeof isUser === "string") {
+    res.status(400).send(isUser);
+  } else {
+    res.send(`Sesión iniciada correctamente, Bienvenido ${isUser.nombre}`);
+  }
+});
