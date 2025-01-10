@@ -256,48 +256,188 @@ color: #f39c12;
 /*********************** Final de los estilos del Home ***********************/
 
 /************************ Inicio de los estilos del Menú ************************/
-.menu-header {
+.menu-section {
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 50px 20px;
 }
-.menu-header h2 {
-  font-size: 2.5rem;
+
+.menu-title {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.menu-tab {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-tab i {
+  font-size: 40px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.menu-tab p {
   font-weight: bold;
+  color: #555;
 }
-.menu-header p {
-  color: #e74c3c;
-  font-weight: bold;
+
+.menu-tab:hover {
+  transform: scale(1.1);
 }
-.menu-items img {
+
+.menu-tab:hover i {
+  color: #f39c12;
+}
+
+.menu-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.menu-category {
+  width: 100%;
+  margin-bottom: 30px; /* Espacio entre las categorías */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 45%;
+  max-width: 400px;
+}
+
+.menu-item img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  margin-bottom: 10px;
 }
-.menu-items h5 {
-  font-size: 1.2rem;
-  margin: 10px 0;
+
+.menu-item div {
+  text-align: left;
+  flex: 1;
 }
-.menu-items p {
-  font-size: 1rem;
+
+.menu-item h4 {
+  margin: 0;
   color: #333;
+  font-size: 18px;
 }
-.specials .card {
-  border: none;
+
+.menu-item p {
+  margin: 5px 0;
+  color: #777;
+}
+
+.menu-item span {
+  color: #333;
+  font-weight: bold;
+}
+
+/*Platos Populares*/
+.popular-dishes {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
   text-align: center;
 }
-.specials .card img {
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.dishes-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dish-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 250px;
+  text-align: left;
+  transition: transform 0.3s ease;
 }
-.specials .card-title {
-  font-size: 1.2rem;
+
+.dish-card:hover {
+  transform: translateY(-5px);
+}
+
+.dish-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.dish-info {
+  padding: 15px;
+}
+
+.dish-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stars {
+  color: #f39c12; /* Amarillo para estrellas */
+  font-size: 1rem;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.dish-name {
+  font-size: 1.1rem;
   font-weight: bold;
-  margin-top: 10px;
+  margin: 10px 0;
+  color: #333;
 }
-.specials .rating {
-  color: #f1c40f;
+
+.dish-price {
+  font-size: 1rem;
+  color: #e74c3c;
+}
+
+.old-price {
+  text-decoration: line-through;
+  margin-right: 10px;
+  color: #aaa;
+}
+
+.new-price {
   font-weight: bold;
+  color: #27ae60; /* Verde */
 }
+
+
 /************************ Final de los estilos del Menú ************************/
 
 /*********************Inicio de los estilos de Login y registrate********************************/

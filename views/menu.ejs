@@ -1,58 +1,137 @@
 <%- include('inc/header') %>
 <%- include('inc/navbar') %>
 
-<p>$12.00</p>
-</div>
-<div class="col-md-4">
-    <img src="https://via.placeholder.com/80" alt="Hamburguesa de pollo">
-    <h5>Hamburguesa de pechuga de pollo</h5>
-    <p>$10.00</p>
-</div>
-<div class="col-md-4">
-    <img src="https://via.placeholder.com/80" alt="Hamburguesa vegetariana">
-    <h5>Hamburguesa vegetariana</h5>
-    <p>$11.00</p>
-</div>
-</div>
-</div>
+<section class="menu-section">
+    <h2 class="menu-title">- POPULAR MENU -</h2>
+    <div class="menu-tabs">
+        <div class="menu-tab" data-category="food">
+            <i class="bi bi-egg-fried"></i>
+            <p>Comida</p>
+        </div>
+        <div class="menu-tab" data-category="drinks">
+            <i class="bi bi-cup-straw"></i>
+            <p>Bebidas</p>
+        </div>
+        <div class="menu-tab" data-category="desserts">
+            <i class="bi bi-cup-fill"></i>
+            <p>Postres</p>
+        </div>
+    </div>
+    <div class="menu-content">
+        <!-- Comida -->
+        <div class="menu-category" data-category="food">
+            <div class="menu-item">
+                <img src="burger.jpg" alt="Burger">
+                <div>
+                    <h4>Hamburguesa</h4>
+                    <p>Deliciosa hamburguesa con queso.</p>
+                    <span>$12.00</span>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="pasta.jpg" alt="Pasta">
+                <div>
+                    <h4>Pasta Italiana</h4>
+                    <p>Pasta fresca con salsa pomodoro.</p>
+                    <span>$15.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- Bebidas -->
+        <div class="menu-category" data-category="drinks" style="display: none;">
+            <div class="menu-item">
+                <img src="coffee.jpg" alt="Coffee">
+                <div>
+                    <h4>Café</h4>
+                    <p>Café recién hecho con aroma único.</p>
+                    <span>$3.50</span>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="juice.jpg" alt="Juice">
+                <div>
+                    <h4>Jugo Natural</h4>
+                    <p>Jugo de naranja fresco.</p>
+                    <span>$4.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- Postres -->
+        <div class="menu-category" data-category="desserts" style="display: none;">
+            <div class="menu-item">
+                <img src="cake.jpg" alt="Cake">
+                <div>
+                    <h4>Pastel de Chocolate</h4>
+                    <p>Postre ideal para los amantes del dulce.</p>
+                    <span>$6.00</span>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="icecream.jpg" alt="Ice Cream">
+                <div>
+                    <h4>Helado</h4>
+                    <p>Helado artesanal de vainilla.</p>
+                    <span>$5.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<!-- Propuestas Especiales -->
-<section class="menu-section specials bg-light">
-<div class="container">
-<div class="menu-header">
-<h2>Propuestas Especiales</h2>
-</div>
-<div class="row">
-<div class="col-md-4">
-    <div class="card">
-        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Adobos de bistec">
-        <div class="card-body">
-            <h5 class="card-title">Adobos de Bistec a la Parrilla</h5>
-            <p class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; 4.8</p>
+<section class="popular-dishes">
+    <h2 class="section-title">Platos Populares</h2>
+    <div class="dishes-container">
+        <!-- Plato 1 -->
+        <div class="dish-card">
+            <img src="https://via.placeholder.com/150" alt="Grilled Steak Marinades">
+            <div class="dish-info">
+                <div class="dish-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating">4.8</span>
+                </div>
+                <h3 class="dish-name">Grilled Steak Marinades</h3>
+                <p class="dish-price">
+                    <span class="old-price">$25.00</span> 
+                    <span class="new-price">$19.00</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Plato 2 -->
+        <div class="dish-card">
+            <img src="https://via.placeholder.com/150" alt="Beef Masala Grill">
+            <div class="dish-info">
+                <div class="dish-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating">4.3</span>
+                </div>
+                <h3 class="dish-name">Beef Masala Grill</h3>
+                <p class="dish-price">
+                    <span class="old-price">$24.00</span> 
+                    <span class="new-price">$18.00</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Plato 3 -->
+        <div class="dish-card">
+            <img src="https://via.placeholder.com/150" alt="Slow Cooker Potpourri">
+            <div class="dish-info">
+                <div class="dish-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating">4.9</span>
+                </div>
+                <h3 class="dish-name">Slow Cooker Potpourri</h3>
+                <p class="dish-price">
+                    <span class="old-price">$22.00</span> 
+                    <span class="new-price">$20.00</span>
+                </p>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-md-4">
-    <div class="card">
-        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Parrilla masala">
-        <div class="card-body">
-            <h5 class="card-title">Parrilla Masala de Ternera</h5>
-            <p class="rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.3</p>
-        </div>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="card">
-        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Popurrí en olla lenta">
-        <div class="card-body">
-            <h5 class="card-title">Popurrí en Olla de Cocción Lenta</h5>
-            <p class="rating">&#9733;&#9733;&#9733;&#9733;&#9733; 4.9</p>
-        </div>
-    </div>
-</div>
-</div>
-</div>
 </section>
+
+
+<script src="menu.js"></script>
 
 <%- include('inc/footer') %>

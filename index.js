@@ -7,20 +7,19 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Configura la carpeta 'view/css' para servir archivos estáticos
-app.use('/css', express.static(path.join(__dirname, 'views/css')));
+// Configurar la carpeta "public" para archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware para autenticación y roles
 const isAuthenticated = (req, res, next) => {
-    // Aquí podrías validar sesiones, cookies o JWT
-    if (req.query.auth === 'true') { // Ejemplo básico
+    if (req.query.auth === 'true') {
         return next();
     }
     res.redirect('/login');
 };
 
 const isAdmin = (req, res, next) => {
-    if (req.query.admin === 'true') { // Ejemplo con query params
+    if (req.query.admin === 'true') {
         return next();
     }
     res.status(403).render('403', { title: 'Acceso denegado' });
@@ -38,7 +37,7 @@ app.get('/:view?', (req, res) => {
     }
 });
 
-// Rutas protegidas (requieren autenticación)
+// Rutas protegidas
 app.get('/dashboard', isAuthenticated, isAdmin, (req, res) => {
     res.render('dashboard', { title: 'Panel de Administración' });
 });
@@ -56,7 +55,7 @@ app.get('/login', (req, res) => {
     res.render('login', { title: 'Inicio de sesión' });
 });
 
-// Middleware de manejo de errores genéricos
+// Middleware de manejo de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('500', { title: 'Error del servidor' });
