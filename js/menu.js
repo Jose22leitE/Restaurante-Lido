@@ -1,13 +1,21 @@
-document.querySelectorAll(".menu-tab").forEach(tab => {
+// Selección de tabs y filtrado de contenido
+document.querySelectorAll(".menu-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
-        const category = tab.getAttribute("data-category");
-
-        // Ocultar todas las categorías
-        document.querySelectorAll(".menu-category").forEach(categoryDiv => {
-            categoryDiv.style.display = "none";
-        });
-
-        // Mostrar la categoría seleccionada
-        document.querySelector(`.menu-category[data-category="${category}"]`).style.display = "block";
+      // Quitar clase activa de los demás tabs
+      document.querySelectorAll(".menu-tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+  
+      // Obtener categoría seleccionada
+      const category = tab.getAttribute("data-category");
+  
+      // Mostrar/ocultar los elementos según la categoría
+      document.querySelectorAll(".menu-item").forEach((item) => {
+        if (item.classList.contains(category)) {
+          item.classList.remove("d-none");
+        } else {
+          item.classList.add("d-none");
+        }
+      });
     });
-});
+  });
+  

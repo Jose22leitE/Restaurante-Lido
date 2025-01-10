@@ -256,185 +256,159 @@ color: #f39c12;
 /*********************** Final de los estilos del Home ***********************/
 
 /************************ Inicio de los estilos del Menú ************************/
+/* Estilo general */
 .menu-section {
-  text-align: center;
+  background-color: #f9f9f9;
   padding: 50px 20px;
 }
 
 .menu-title {
-  font-size: 24px;
-  margin-bottom: 30px;
-  color: #555;
+  font-size: 2rem;
+  color: #333;
 }
 
+.menu-subtitle {
+  font-size: 1rem;
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+/* Tabs de categorías */
 .menu-tabs {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-bottom: 40px;
 }
 
 .menu-tab {
-  text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.menu-tab.active {
+  background-color: #e74c3c;
+  color: #fff;
 }
 
 .menu-tab i {
-  font-size: 40px;
-  color: #777;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
 }
 
 .menu-tab p {
+  margin: 0;
   font-weight: bold;
-  color: #555;
 }
 
-.menu-tab:hover {
-  transform: scale(1.1);
-}
-
-.menu-tab:hover i {
-  color: #f39c12;
-}
-
-.menu-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-.menu-category {
-  width: 100%;
-  margin-bottom: 30px; /* Espacio entre las categorías */
-}
-
+/* Listado de platillos */
 .menu-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 45%;
-  max-width: 400px;
+  transition: transform 0.3s ease;
 }
 
-.menu-item img {
+.menu-item:hover {
+  transform: scale(1.05);
+}
+
+.menu-img {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e74c3c;
 }
 
-.menu-item div {
-  text-align: left;
-  flex: 1;
+/* Categorías ocultas */
+.menu-item.d-none {
+  display: none !important;
 }
 
-.menu-item h4 {
-  margin: 0;
-  color: #333;
-  font-size: 18px;
-}
-
-.menu-item p {
-  margin: 5px 0;
-  color: #777;
-}
-
-.menu-item span {
-  color: #333;
-  font-weight: bold;
-}
-
-/*Platos Populares*/
+/* Estilo general */
 .popular-dishes {
-  padding: 40px 20px;
   background-color: #f9f9f9;
-  text-align: center;
+  padding: 50px 20px;
 }
 
 .section-title {
   font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 30px;
   color: #333;
 }
 
+/* Contenedor de los platos */
 .dishes-container {
   display: flex;
-  justify-content: center;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
+/* Tarjetas de plato */
 .dish-card {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   width: 250px;
-  text-align: left;
-  transition: transform 0.3s ease;
+  text-align: center;
 }
 
 .dish-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.dish-card img {
+/* Imagen del plato */
+.dish-img {
   width: 100%;
-  height: auto;
+  height: 150px;
   object-fit: cover;
 }
 
+/* Información del plato */
 .dish-info {
   padding: 15px;
 }
 
 .dish-rating {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 10px;
-}
-
-.stars {
-  color: #f39c12; /* Amarillo para estrellas */
   font-size: 1rem;
 }
 
+.stars {
+  color: #ffc107;
+}
+
 .rating {
-  font-size: 0.9rem;
+  font-weight: bold;
   color: #555;
 }
 
 .dish-name {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 10px 0;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
   color: #333;
+  font-weight: bold;
 }
 
 .dish-price {
   font-size: 1rem;
-  color: #e74c3c;
 }
 
 .old-price {
   text-decoration: line-through;
+  color: #999;
   margin-right: 10px;
-  color: #aaa;
 }
 
 .new-price {
+  color: #e74c3c;
   font-weight: bold;
-  color: #27ae60; /* Verde */
 }
 
 

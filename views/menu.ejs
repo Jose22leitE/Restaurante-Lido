@@ -1,137 +1,130 @@
 <%- include('inc/header') %>
 <%- include('inc/navbar') %>
 
-<section class="menu-section">
-    <h2 class="menu-title">- POPULAR MENU -</h2>
-    <div class="menu-tabs">
-        <div class="menu-tab" data-category="food">
-            <i class="bi bi-egg-fried"></i>
-            <p>Comida</p>
+<section class="menu-section py-5">
+    <div class="container">
+      <!-- Título -->
+      <div class="text-center">
+        <p class="menu-subtitle text-danger">- ESCOGE DELICIOSO -</p>
+        <h2 class="menu-title fw-bold">MENÚ POPULAR</h2>
+      </div>
+  
+      <!-- Categorías -->
+      <div class="menu-tabs text-center my-4">
+        <div class="menu-tab active" data-category="food">
+          <i class="bi bi-egg-fried"></i>
+          <p>Comida</p>
         </div>
         <div class="menu-tab" data-category="drinks">
-            <i class="bi bi-cup-straw"></i>
-            <p>Bebidas</p>
+          <i class="bi bi-cup-straw"></i>
+          <p>Bebidas</p>
         </div>
         <div class="menu-tab" data-category="desserts">
-            <i class="bi bi-cup-fill"></i>
-            <p>Postres</p>
+          <i class="bi bi-ice-cream"></i>
+          <p>Postres</p>
         </div>
+      </div>
+  
+      <!-- Listado de Platillos -->
+      <div class="row gy-4 menu-content">
+        <!-- Platillos de Comida -->
+        <div class="col-md-6 d-flex align-items-center menu-item food">
+          <img src="https://arc-anglerfish-arc2-prod-abccolor.s3.amazonaws.com/public/FJQXM5JUU5FFHDDCNZLOSDZGSY.jpg" alt="Huevo cocido ecológico" class="menu-img rounded-circle me-3">
+          <div>
+            <h5>Huevo cocido ecológico</h5>
+            <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
+            <span class="fw-bold">$12.00</span>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center menu-item food">
+          <img src="https://arc-anglerfish-arc2-prod-abccolor.s3.amazonaws.com/public/FJQXM5JUU5FFHDDCNZLOSDZGSY.jpg" alt="Hamburguesa de pechuga de pollo" class="menu-img rounded-circle me-3">
+          <div>
+            <h5>Hamburguesa de pechuga de pollo</h5>
+            <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
+            <span class="fw-bold">$10.00</span>
+          </div>
+        </div>
+  
+        <!-- Platillos de Bebidas -->
+        <div class="col-md-6 d-flex align-items-center menu-item drinks d-none">
+          <img src="https://example.com/bebida1.jpg" alt="Jugo Natural" class="menu-img rounded-circle me-3">
+          <div>
+            <h5>Jugo Natural</h5>
+            <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
+            <span class="fw-bold">$5.00</span>
+          </div>
+        </div>
+  
+        <!-- Platillos de Postres -->
+        <div class="col-md-6 d-flex align-items-center menu-item desserts d-none">
+          <img src="https://example.com/postre1.jpg" alt="Helado de Vainilla" class="menu-img rounded-circle me-3">
+          <div>
+            <h5>Helado de Vainilla</h5>
+            <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
+            <span class="fw-bold">$7.00</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="menu-content">
-        <!-- Comida -->
-        <div class="menu-category" data-category="food">
-            <div class="menu-item">
-                <img src="burger.jpg" alt="Burger">
-                <div>
-                    <h4>Hamburguesa</h4>
-                    <p>Deliciosa hamburguesa con queso.</p>
-                    <span>$12.00</span>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="pasta.jpg" alt="Pasta">
-                <div>
-                    <h4>Pasta Italiana</h4>
-                    <p>Pasta fresca con salsa pomodoro.</p>
-                    <span>$15.00</span>
-                </div>
-            </div>
-        </div>
-        <!-- Bebidas -->
-        <div class="menu-category" data-category="drinks" style="display: none;">
-            <div class="menu-item">
-                <img src="coffee.jpg" alt="Coffee">
-                <div>
-                    <h4>Café</h4>
-                    <p>Café recién hecho con aroma único.</p>
-                    <span>$3.50</span>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="juice.jpg" alt="Juice">
-                <div>
-                    <h4>Jugo Natural</h4>
-                    <p>Jugo de naranja fresco.</p>
-                    <span>$4.00</span>
-                </div>
-            </div>
-        </div>
-        <!-- Postres -->
-        <div class="menu-category" data-category="desserts" style="display: none;">
-            <div class="menu-item">
-                <img src="cake.jpg" alt="Cake">
-                <div>
-                    <h4>Pastel de Chocolate</h4>
-                    <p>Postre ideal para los amantes del dulce.</p>
-                    <span>$6.00</span>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="icecream.jpg" alt="Ice Cream">
-                <div>
-                    <h4>Helado</h4>
-                    <p>Helado artesanal de vainilla.</p>
-                    <span>$5.00</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="popular-dishes">
-    <h2 class="section-title">Platos Populares</h2>
-    <div class="dishes-container">
+  </section>
+  
+<!--PLATOS POPULARES-->
+<section class="popular-dishes py-5">
+    <div class="container text-center">
+      <h2 class="section-title fw-bold mb-4">Platos Populares</h2>
+      <div class="dishes-container d-flex flex-wrap justify-content-center gap-4">
         <!-- Plato 1 -->
         <div class="dish-card">
-            <img src="https://via.placeholder.com/150" alt="Grilled Steak Marinades">
-            <div class="dish-info">
-                <div class="dish-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating">4.8</span>
-                </div>
-                <h3 class="dish-name">Grilled Steak Marinades</h3>
-                <p class="dish-price">
-                    <span class="old-price">$25.00</span> 
-                    <span class="new-price">$19.00</span>
-                </p>
+          <img src="https://via.placeholder.com/150" alt="Grilled Steak Marinades" class="dish-img">
+          <div class="dish-info">
+            <div class="dish-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating">4.8</span>
             </div>
+            <h3 class="dish-name">Grilled Steak Marinades</h3>
+            <p class="dish-price">
+              <span class="old-price">$25.00</span>
+              <span class="new-price">$19.00</span>
+            </p>
+          </div>
         </div>
-
+  
         <!-- Plato 2 -->
         <div class="dish-card">
-            <img src="https://via.placeholder.com/150" alt="Beef Masala Grill">
-            <div class="dish-info">
-                <div class="dish-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating">4.3</span>
-                </div>
-                <h3 class="dish-name">Beef Masala Grill</h3>
-                <p class="dish-price">
-                    <span class="old-price">$24.00</span> 
-                    <span class="new-price">$18.00</span>
-                </p>
+          <img src="https://via.placeholder.com/150" alt="Beef Masala Grill" class="dish-img">
+          <div class="dish-info">
+            <div class="dish-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating">4.3</span>
             </div>
+            <h3 class="dish-name">Beef Masala Grill</h3>
+            <p class="dish-price">
+              <span class="old-price">$24.00</span>
+              <span class="new-price">$18.00</span>
+            </p>
+          </div>
         </div>
-
+  
         <!-- Plato 3 -->
         <div class="dish-card">
-            <img src="https://via.placeholder.com/150" alt="Slow Cooker Potpourri">
-            <div class="dish-info">
-                <div class="dish-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating">4.9</span>
-                </div>
-                <h3 class="dish-name">Slow Cooker Potpourri</h3>
-                <p class="dish-price">
-                    <span class="old-price">$22.00</span> 
-                    <span class="new-price">$20.00</span>
-                </p>
+          <img src="https://via.placeholder.com/150" alt="Slow Cooker Potpourri" class="dish-img">
+          <div class="dish-info">
+            <div class="dish-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating">4.9</span>
             </div>
+            <h3 class="dish-name">Slow Cooker Potpourri</h3>
+            <p class="dish-price">
+              <span class="old-price">$22.00</span>
+              <span class="new-price">$20.00</span>
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
+  
 
-
-<script src="menu.js"></script>
+<script src="/js/menu.js"></script>
 
 <%- include('inc/footer') %>
