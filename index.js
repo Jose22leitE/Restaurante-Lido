@@ -4,6 +4,7 @@ const User = require("./models/userModels.js");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require('./config/config.js');
 const cookieParser = require("cookie-parser");
+const { render } = require("ejs");
 
 // Crear la aplicación express
 const app = express();
@@ -11,19 +12,32 @@ const port = 3000;
 
 // Middleware para analizar el cuerpo de las solicitudes como JSON
 app.use(express.json());
+//Middleware para las cookies
 app.use(cookieParser());
 
-// Configuración del motor de plantillas y vistas
+app.use((req, res, next) => {
+  const token = req.cookies['token_access'];
+  let data = null;
+
+  req.session = { user: null };
+  try {
+      data = jwt.verify(token, SECRET_KEY);
+      req.session.user = data;
+  } catch (error) {
+      console.error('Error al verificar el token:', error);
+  }
+  next();
+});
+
+
+//Middleware Configuración del motor de plantillas y vistas
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// Configura la carpeta 'view/css' para servir archivos estáticos
+//Middleware Configura la carpeta 'view/css' para servir archivos estáticos
 app.use("/css", express.static(path.join(__dirname, "public/css")));
-
-// Configura la carpeta 'view/js' para servir archivos estáticos
+//Middleware Configura la carpeta 'view/js' para servir archivos estáticos
 app.use("/js", express.static(path.join(__dirname, "public/js")));
-
-// Configura la carpeta 'view/img' para servir archivos estáticos
+//Middleware Configura la carpeta 'view/img' para servir archivos estáticos
 app.use("/img", express.static(path.join(__dirname, "public/img")));
 
 // Rutas para las vistas
@@ -48,21 +62,20 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/prueba", (req, res) => {
-  const token = req.cookies['token_access'];
-  if (!token) {
-    return res.redirect("/login");
-  }
-  try {
-    const data = jwt.verify(token, SECRET_KEY);
-    console.log(data);
-    res.render("prueba", { title: "Prueba", data});
-  } catch (error) {
-    res.status(403).redirect("/login");
-  }
+  const data = req.session.user;
+  if(data === null) res.status(403).redirect("/login");
+  res.render("prueba", { title: "Prueba", data});
+  
 });
 
 app.get("/", (req, res) => {
   res.render('home', { title: 'Home' });
+});
+
+app.get("/logout", (req, res) => {
+  res
+    .clearCookie("token_access")
+    .render('logout', { title: 'Logout' });
 });
 
 app.get("*", (req, res) => {
@@ -74,7 +87,12 @@ app.get("*", (req, res) => {
 // Rutas protegidas
 app.post("/register", async (req, res) => {
   const { Nombre, Contraseña, Telefono, Correo } = req.body;
-  const isRegister = await User.registroUsuario(Nombre, Contraseña, Telefono, Correo);
+  const isRegister = await User.registroUsuario(
+    Nombre,
+    Contraseña,
+    Telefono,
+    Correo
+  );
   if (isRegister !== true) {
     res.status(400).json({
       success: false,
@@ -93,6 +111,7 @@ app.post("/register", async (req, res) => {
     });
   }
 });
+
 app.post("/login", async (req, res) => {
   try {
     const { Correo, Contraseña } = req.body;
