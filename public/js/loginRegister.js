@@ -57,6 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: res.texto,
                 icon: res.icono,
                 confirmButtonText: 'Aceptar'
+            }).then(result => {
+                if (result.isConfirmed) { // Verifica si el botón de confirmación fue presionado
+                    window.location.href = 'prueba'; // Redirige a la página 'prueba'
+                }
             });
         })
         .catch(error => console.error('Error:', error));
