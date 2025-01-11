@@ -4,47 +4,47 @@ const bcrypt = require("bcrypt");
 const mainModels = require("./mainModels");
 
 class User {
-  static async registroUsuario(name, Contraseña, Telefono, correo, Edad) {
+  static async registroUsuario(name, Contraseña, Telefono, correo) {
     try {
       // Validación de datos
-      const isValid = mainModels.Validation(1, { name, Contraseña, Telefono, correo, Edad });
+      const isValid = mainModels.Validation(1, { name, Contraseña, Telefono, correo });
       if (isValid !== true) {
         return isValid;
       }
-
+  
       // Búsqueda del usuario
       let user = await db.collection("Usuario").where("email", "==", correo).get();
       if (!user.empty) {
         return "Usuario ya registrado";
       }
-
+  
       // Búsqueda del usuario
       user = await db.collection("Usuario").where("telefono", "==", Telefono).get();
       if (!user.empty) {
         return "Usuario ya registrado";
       }
-
+  
       // Creación del id
       const id = crypto.randomBytes(16).toString("hex");
-
+  
       // Encriptación de la contraseña
       Contraseña = await bcrypt.hash(Contraseña, 8);
-
+  
       // Creación del documento
       await db.collection("Usuario").doc(id).set({
         nombre: name,
         email: correo,
         contraseña: Contraseña,
         telefono: Telefono,
-        edad: Edad,
         rol: "cliente",
       });
       
       return true;
     } catch (error) {
-      return "Error al crear el documento:", error;
+      return `Error al crear el documento: ${error}`;
     }
   }
+  
 
   static async loginUsuario(correo, Contraseña) {
     try {
@@ -73,7 +73,6 @@ class User {
         nombre: userData.nombre,
         email: userData.email,
         telefono: userData.telefono,
-        edad: userData.edad,
         rol: userData.rol,
       }
       return Usuario;

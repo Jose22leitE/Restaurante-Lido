@@ -9,7 +9,6 @@ class mainModels {
         Contraseña: z.string().nonempty(),
         Telefono: z.string().nonempty(),
         correo: z.string().email(),
-        Edad: z.number().int().positive()
       });
     } else if (tipo === 2) {
       schema = z.object({
@@ -17,7 +16,7 @@ class mainModels {
         Contraseña: z.string().nonempty(),
       });
     }
-
+  
     try {
       schema.parse(data);
       return true;
@@ -25,6 +24,7 @@ class mainModels {
       return this.formatValidationErrors(error.errors);
     }
   }
+  
 
   static formatValidationErrors(errors) {
     return errors
