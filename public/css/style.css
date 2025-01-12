@@ -223,7 +223,6 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 margin-top: 10px;
 text-transform: uppercase;
 font-weight: 600;
-<<<<<<< HEAD:public/css/style.css
 }
 
 .menu-tabs {
@@ -644,6 +643,45 @@ main {
   color: #ffc107;
 }
 /*********************** Final de los estilos de Contactanos ********************/
-=======
+
+/*********************** Inicio de los estilos de GestMenu **********************/
+.container {
+  margin-top: 30px;
 }
->>>>>>> ab202d279720884f0913e82979eafd95750e7244:views/css/style.css
+
+.form-control {
+  background-color: #ffd54f;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+  background-color: #ffe082;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom {
+  background-color: #ffca28;
+  color: black;
+}
+
+.btn-custom:hover {
+  background-color: #ffc107;
+  color: white;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  height: 150px;
+  object-fit: cover;
+}
+
+.card .card-text strong {
+  font-weight: bold;
+  color: #333;
+}
+
+/*********************** Final de los estilos de GestMenu ***********************/
