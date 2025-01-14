@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const { title } = require("process");
 
-//Congfiguración de multer
+// Configuración de multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, DIRECTORIO);
@@ -38,12 +38,13 @@ app.use(
   "/img_recetas",
   express.static(path.join(__dirname, "public/img_recetas"))
 );
-//middleware de sesiones
+
+// Middleware de sesiones
 app.use((req, res, next) => {
   const token = req.cookies["token_access"];
   let data = null;
 
-  req.session = { user: null };
+  req.session = req.session || {};
 
   if (!token) {
     return next();
@@ -51,7 +52,6 @@ app.use((req, res, next) => {
 
   try {
     data = jwt.verify(token, SECRET_KEY);
-    console.log(data.Rol);
     req.session.user = data;
   } catch (error) {
     console.error("Error al verificar el token:", error);
@@ -63,13 +63,13 @@ app.use((req, res, next) => {
 // Rutas Admin
 const rutesAdmin = ["gestmenu"];
 // Rutas Cliente
-const rutesClientes = ["gfdakj"];
+const rutesClientes = ["perfil"];
 // Rutas Publicas
 const rutesPublicas = ["home", "login", "logout", "menu", "Reserva"];
 
 // Rutas GET
 app.get("/:view?", (req, res) => {
-  let view = req.params.view || "home"; // Establecer "home" como valor predeterminado
+  let view = req.params.view || "home";
   const data = req.session.user || null;
 
   if (
@@ -80,29 +80,37 @@ app.get("/:view?", (req, res) => {
     return res.status(404).render("404", { title: "Página no encontrada" });
   }
 
+  if (view == "login") {
+    if (data == null) {
+      res.render("login", { title: "Inicio de sesion" });
+    } else {
+      res.render("home", { title: "Home" });
+    }
+  }
+
+  if (view == "logout") {
+      res.clearCookie("token_access");
+      res.render('logout');
+  }
+
   if (rutesPublicas.includes(view)) {
     res.render(view, { title: view });
   } else if (rutesAdmin.includes(view)) {
-    if (data && data.rol === "admin") {
+    if (data && data.Rol === "admin") {
       res.render(view, { title: view });
     } else {
-      return res.render("login", {
-        title: "Inicio de sesión",
-      });
+      return res.render("login", { title: "Inicio de sesión" });
     }
   } else if (rutesClientes.includes(view)) {
-    if (data && data.rol === "cliente") {
+    if (data && data.Rol === "cliente") {
       res.render(view, { title: view });
     } else {
-      return res.render("login", {
-        title: "Inicio de sesión",
-      });
+      return res.render("login", { title: "Inicio de sesión" });
     }
   } else {
     res.status(404).render("404", { title: "Página no encontrada" });
   }
 });
-
 
 // Rutas POST
 app.post("/register", async (req, res) => {
@@ -155,7 +163,7 @@ app.post("/login", async (req, res) => {
     res
       .cookie("token_access", token, {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: "strict",
         maxAge: 1000 * 60 * 60,
       })
@@ -198,7 +206,7 @@ app.post("/reserva", async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Errores de validación",
+      message: "Reserva realizada correctamente",
       icono: "success",
       titulo: "Enhorabuena",
       texto:

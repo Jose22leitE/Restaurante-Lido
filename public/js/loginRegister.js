@@ -58,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: res.icono,
                 confirmButtonText: 'Aceptar'
             }).then(result => {
-            
+                if(result.isConfirm()){
+                    res.redirect("/home")
+                }
             });
         })
         .catch(error => console.error('Error:', error));
