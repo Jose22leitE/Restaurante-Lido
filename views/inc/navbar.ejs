@@ -21,10 +21,10 @@
         <li class="nav-item">
           <a class="nav-link" href="menu">Menú</a>
         </li>
-        <li class="nav-item">
-          <button id="reservationButton" class="btn btn-link nav-link">Reserva</button>
-        </li>
         <% if (user && user.Nombre) { %>
+          <li class="nav-item">
+            <a href="/reserva" class="nav-link">Reserva</a>
+          </li>
           <li class="nav-item">
             <button id="userButton" class="btn btn-link nav-link">Hola <%= user.Nombre %></button>
           </li>

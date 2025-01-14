@@ -132,9 +132,6 @@ class Validation {
       return this.formatValidationErrors(error.errors);
     }
   }
-  
-  
-  
 
   static ValidationImagen(Imagen){
     if(!Imagen) return "La Imagen es requerida";

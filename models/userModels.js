@@ -103,6 +103,7 @@ class User {
       }
 
       const Usuario = {
+        Id: userData.Id,
         Nombre: userData.Nombre,
         Correo: userData.Correo,
         Telefono: userData.Telefono,
