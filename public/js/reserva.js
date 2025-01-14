@@ -1,39 +1,45 @@
 // Selección del formulario
-const form = document.getElementById('reservation-form');
+const form = document.getElementById("reservation-form");
 
 // Evento al enviar el formulario
-form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Previene el envío por defecto
+form.addEventListener("submit", (event) => {
+  event.preventDefault(); // Previene el envío por defecto
 
-    // Obtener datos del formulario
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
-    const guests = document.getElementById('guests').value;
+  // Obtener datos del formulario
+  const Nombre = document.getElementById("name").value.trim();
+  const Correo = document.getElementById("email").value.trim();
+  const Telefono = document.getElementById("phone").value.trim();
+  const Fecha = document.getElementById("date").value;
+  const Hora = document.getElementById("time").value;
+  const Personas = document.getElementById("guests").value;
 
-    // Verificar si todos los campos están completos
-    if (name && email && phone && date && time && guests) {
-        // Mostrar mensaje de éxito
-        Swal.fire({
-            icon: 'success',
-            title: '¡Reserva realizada con éxito!',
-            text: `Gracias, ${name}. Hemos recibido tu reserva para ${date} a las ${time}.
-            Pronto recibirás un correo con los detalles.`,
-            confirmButtonText: 'Cerrar',
-        });
-
-        // Reiniciar el formulario
-        form.reset();
-    } else {
-        // Mostrar mensaje de error
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Por favor, completa todos los campos correctamente.',
-            confirmButtonText: 'Cerrar',
-        });
-    }
+  fetch("/reserva", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Nombre,
+      Correo,
+      Telefono,
+      Fecha,
+      Hora,
+      Personas,
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      Swal.fire({
+        title: res.titulo,
+        text: res.texto,
+        icon: res.icono,
+        confirmButtonText: "Aceptar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Verifica si el botón de confirmación fue presionado
+          window.location.href = "prueba"; // Redirige a la página 'prueba'
+        }
+      });
+    })
+    .catch((error) => console.error("Error:", error));
 });
-

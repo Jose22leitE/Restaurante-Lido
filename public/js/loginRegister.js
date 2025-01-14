@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: res.icono,
                 confirmButtonText: 'Aceptar'
             }).then(result => {
-                if (result.isConfirmed) { // Verifica si el botón de confirmación fue presionado
-                    window.location.href = 'prueba'; // Redirige a la página 'prueba'
+                if(result.isConfirm()){
+                    res.redirect("/home")
                 }
             });
         })
