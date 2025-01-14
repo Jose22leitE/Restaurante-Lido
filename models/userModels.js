@@ -57,6 +57,7 @@ class User {
         contraseña: Contraseña,
         Telefono: Telefono,
         Rol: "admin",
+        Id: id
       });
 
       return true;
