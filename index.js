@@ -65,7 +65,7 @@ const rutesAdmin = ["gestmenu"];
 // Rutas Cliente
 const rutesClientes = ["perfil"];
 // Rutas Publicas
-const rutesPublicas = ["home", "login", "logout", "menu", "Reserva"];
+const rutesPublicas = ["home", "login", "logout", "menu", "Reserva","contacto"];
 
 // Rutas GET
 app.get("/:view?", (req, res) => {
@@ -97,7 +97,6 @@ app.get("/:view?", (req, res) => {
     res.render(view, { title: view });
   } else if (rutesAdmin.includes(view)) {
     if (data && data.Rol === "admin") {
-      res.render(view, { title: view });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
@@ -244,6 +243,59 @@ app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
   }
 });
 
+app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
+  const { Nombre, Descripcion, Precio } = req.body;
+  const Imagen = {
+    name: req.file.filename,
+    size: req.file.size,
+    extension: path.extname(req.file.originalname),
+  };
+  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen);
+  if (isMenu !== true) {
+    res.status(400).json({
+      success: false,
+      message: "Errores de validación",
+      icono: "error",
+      titulo: "Error",
+      texto: isMenu,
+    });
+  } else {
+    res.json({
+      success: "success",
+      message: "Menu registrado",
+      icono: "success",
+      titulo: "Enhorabuena",
+      texto: "Menu registrado correctamente",
+      Imagen: req.file.filename,
+      id: "123",
+    });
+  }
+});
+
+app.post("/gestMenuD", async (req, res) => {
+  const { Id} = req.body;
+
+  const isMenu = await Menu.delMenu(Id);
+  if (isMenu !== true) {
+    res.status(400).json({
+      success: false,
+      message: "Errores de validación",
+      icono: "error",
+      titulo: "Error",
+      texto: isMenu,
+    });
+  } else {
+    res.json({
+      success: "success",
+      message: "Menu registrado",
+      icono: "success",
+      titulo: "Enhorabuena",
+      texto: "Menu registrado correctamente",
+      Imagen: req.file.filename,
+      id: "123",
+    });
+  }
+});
 // Middleware de manejo de errores genéricos
 app.use((err, req, res, next) => {
   console.error(err.stack);
