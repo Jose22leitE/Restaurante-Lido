@@ -56,7 +56,7 @@ class User {
         Correo: Correo,
         contraseña: Contraseña,
         Telefono: Telefono,
-        Rol: "admin",
+        Rol: "cliente",
         Id: id
       });
 
@@ -108,7 +108,6 @@ class User {
         Telefono: userData.Telefono,
         Rol: userData.Rol,
       };
-      console.log(Usuario);
       return Usuario;
     } catch (error) {
       return "Error al buscar el usuario:", error;
