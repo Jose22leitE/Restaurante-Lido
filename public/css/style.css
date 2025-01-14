@@ -10,18 +10,19 @@ body, html {
 /* Navbar Styles */
 .navbar {
   z-index: 10;
-  padding: 20px 0;
+  padding: 15px 0;
+  background-color: #333; /* Negro oscuro */
 }
 
 .navbar .nav-link {
-  color: #fff;
+  color: #ccc; /* Gris claro */
   font-weight: 500;
   margin: 0 10px;
   text-transform: uppercase;
 }
 
 .navbar .nav-link:hover {
-  color: #fcfbf9;
+  color: #fff; /* Blanco */
 }
 
 .navbar-brand img {
@@ -29,14 +30,29 @@ body, html {
 }
 
 .navbar .btn {
-  color: #fff;
-  border-color: #000000;
+  color: #fff; /* Blanco */
+  border-color: #fff;
 }
 
 .navbar .btn:hover {
-  background-color: #f7f6f3;
-  color: #000;
+  background-color: #fff; /* Blanco */
+  color: #333; /* Negro oscuro */
+  border-color: #fff;
 }
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .navbar .nav-link {
+    margin: 5px 0;
+    text-align: center;
+  }
+
+  .navbar .btn {
+    display: block;
+    width: 100%;
+  }
+}
+
 
 /* Hero Section */
 .hero-text {
