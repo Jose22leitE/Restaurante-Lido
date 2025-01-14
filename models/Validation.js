@@ -141,10 +141,15 @@ class Validation {
     
     return true;
   }
-  static ValidationMenu(Selection){
-    if(Selection != "Comida" && Selection != "Postre" && Selection != "Bebida") return "lo sentimos ese tipo de menu no existe"; 
-    return true
+  
+  static ValidationMenu(Selection) {
+    const validMenus = ["Comida", "Postre", "Bebida"];
+    if (!validMenus.includes(Selection)) {
+      return "Lo sentimos, ese tipo de menú no existe";
+    }
+    return true;
   }
+  
   
   static formatValidationErrors(errors) {
     if (!Array.isArray(errors)) {

@@ -93,19 +93,20 @@ app.get("/:view?", async (req, res) => {
     return res.render("logout");
   }
 
-  const menuHtml = await Menu.mostrarMenu();
+  const menuHtmlhome = await Menu.mostrarMenuHome();
+  const menuHtmlgest = await Menu.mostrarMenu();
 
   if (rutesPublicas.includes(view)) {
-    return res.render(view, { title: view, menu: menuHtml, user: data });
+    return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
   } else if (rutesAdmin.includes(view)) {
     if (data && data.Rol === "admin") {
-      return res.render(view, { title: view, menu: menuHtml, user: data });
+      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
   } else if (rutesClientes.includes(view)) {
     if (data && data.Rol === "cliente") {
-      return res.render(view, { title: view, menu: menuHtml, user: data });
+      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
@@ -113,6 +114,8 @@ app.get("/:view?", async (req, res) => {
     return res.status(404).render("404", { title: "Página no encontrada" });
   }
 });
+
+
 
 
 // Rutas POST
@@ -231,7 +234,7 @@ app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
     size: req.file.size,
     extension: path.extname(req.file.originalname),
   };
-  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen,Selection);
+  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen, Selection);
   if (isMenu !== true) {
     res.status(400).json({
       success: false,
@@ -246,9 +249,7 @@ app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
       message: "Menu registrado",
       icono: "success",
       titulo: "Enhorabuena",
-      texto: "Menu registrado correctamente",
-      Imagen: req.file.filename,
-      id: "123",
+      texto: "Menu registrado correctamente"
     });
   }
 });
@@ -272,12 +273,10 @@ app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Menu registrado",
+      message: "Menu Eliminado",
       icono: "success",
-      titulo: "Enhorabuena",
-      texto: "Menu registrado correctamente",
-      Imagen: req.file.filename,
-      id: "123",
+      titulo: "Excelente",
+      texto: "Menu eliminado correctamente"
     });
   }
 });
@@ -297,10 +296,10 @@ app.post("/gestMenuD", async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Menu registrado",
+      message: "Menu Eliminado",
       icono: "success",
-      titulo: "Enhorabuena",
-      texto: "Menu registrado correctamente"
+      titulo: "Excelente",
+      texto: "Menu eliminado correctamente"
     });
   }
 });

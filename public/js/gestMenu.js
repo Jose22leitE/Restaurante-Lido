@@ -13,6 +13,7 @@ document.getElementById("addDishForm").addEventListener("submit", function (e) {
     parseFloat(document.getElementById("dishPrice").value)
   );
   formData.append("Imagen", document.getElementById("dishImage").files[0]);
+  formData.append("Selection", document.getElementById("Selection").value)
 
   const plato = {
     Nombre: document.getElementById("dishName").value,

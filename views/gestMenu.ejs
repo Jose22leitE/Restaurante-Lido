@@ -1,62 +1,64 @@
 <%- include('inc/header') %>
-    <div class="container">
-        <h1 class="text-center mb-4">Gestión de Menú</h1>
+    <%- include('inc/navadmin') %>
 
-        <!-- Formulario para agregar platos -->
-        <div class="card p-4 mb-4">
-            <h3 class="text-center">Crear/Insertar Plato</h3>
-            <form id="addDishForm">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="dishName" class="form-label">Nombre del Plato</label>
-                        <input type="text" class="form-control" id="dishName" placeholder="Colocar el nombre del plato"
-                            required>
+        <div class="container">
+            <h1 class="text-center mb-4">Gestión de Menú</h1>
+
+            <!-- Formulario para agregar platos -->
+            <div class="card p-4 mb-4">
+                <h3 class="text-center">Crear/Insertar Plato</h3>
+                <form id="addDishForm">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="dishName" class="form-label">Nombre del Plato</label>
+                            <input type="text" class="form-control" id="dishName"
+                                placeholder="Colocar el nombre del plato" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dishDescription" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="dishDescription"
+                                placeholder="Colocar la descripción del plato" required>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="dishDescription" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="dishDescription"
-                            placeholder="Colocar la descripción del plato" required>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="dishPrice" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="dishPrice"
+                                placeholder="Colocar el precio del plato" step="0.01" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dishImage" class="form-label">Imagen del Plato</label>
+                            <input type="file" class="form-control" id="dishImage" accept="image/*">
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="dishPrice" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="dishPrice"
-                            placeholder="Colocar el precio del plato" step="0.01" required>
+                    <div class="row mb-2">
+                        <select class="form-select" id="Selection" aria-label="Default select example">
+                            <option selected disabled>¿Qué tipo de plato es?</option>
+                            <option value="Postre">Postre</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Bebida">Bebida</option>
+                        </select>
+
                     </div>
-                    <div class="col-md-6">
-                        <label for="dishImage" class="form-label">Imagen del Plato</label>
-                        <input type="file" class="form-control" id="dishImage" accept="image/*">
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <select class="form-select" id="Selection" aria-label="Default select example">
-                        <option selected>¿Que tipo de plato es?</option>
-                        <option value="Postre">Postre</option>
-                        <option value="Comida">Comida</option>
-                        <option value="Bebida">Bebida</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-custom w-100">Guardar</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-custom w-100">Guardar</button>
+                </form>
+            </div>
 
-        <!-- Tarjetas para listar platos -->
+            <!-- Tarjetas para listar platos -->
 
-        <!-- Tarjetas para listar platos -->
-        <div class="row" id="menuCards">
-            <% if (menu) { %>
-            <%- menu %>
-            <% } else { %>
-            <h1>No hay menú</h1>
-            <% } %>
-        </div>
-  
+            <!-- Tarjetas para listar platos -->
+            <div class="row" id="menuCards">
+                <% if (menu) { %>
+                    <%- menu %>
+                        <% } else { %>
+                            <h1>No hay menú</h1>
+                            <% } %>
+            </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/gestMenu.js"></script>
 
-        </body>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/js/gestMenu.js"></script>
 
-        </html>
+</body>
+</html>

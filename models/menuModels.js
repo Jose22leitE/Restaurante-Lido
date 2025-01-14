@@ -91,6 +91,60 @@ class Menu {
       return `Lo sentimos, error al cargar el menú: ${error.message}`;
     }
   }
+  static async mostrarMenuHome() {
+    try {
+      // Búsqueda de los menús
+      const menu = await db.collection("Menu").get();
+      if (menu.empty) {
+        return "Menú no encontrado";
+      }
+      const menuData = [];
+      menu.forEach((doc) => {
+        menuData.push(doc.data());
+      });
+  
+      let Comidas = "";
+      let Bebidas = "";
+      let Postres = "";
+  
+      menuData.forEach((dish) => {
+        if (dish.Tipo === "Comida") {
+          Comidas += `<div class="col-md-6 d-flex align-items-center menu-item food">
+                        <img src="/img_recetas/${dish.Imagen}" alt="${dish.Nombre}" class="menu-img rounded-circle me-3">
+                        <div>
+                          <h5>${dish.Nombre}</h5>
+                          <p class="text-muted mb-1">${dish.Descripcion}</p>
+                          <span class="fw-bold">$${dish.Precio}</span>
+                        </div>
+                      </div>`;
+        } else if (dish.Tipo === "Postre") {
+          Postres += `<div class="col-md-6 d-flex align-items-center menu-item desserts">
+                        <img src="/img_recetas/${dish.Imagen}" alt="${dish.Nombre}" class="menu-img rounded-circle me-3">
+                        <div>
+                          <h5>${dish.Nombre}</h5>
+                          <p class="text-muted mb-1">${dish.Descripcion}</p>
+                          <span class="fw-bold">$${dish.Precio}</span>
+                        </div>
+                      </div>`;
+        } else if (dish.Tipo === "Bebida") {
+          Bebidas += `<div class="col-md-6 d-flex align-items-center menu-item drinks">
+                        <img src="/img_recetas/${dish.Imagen}" alt="${dish.Nombre}" class="menu-img rounded-circle me-3">
+                        <div>
+                          <h5>${dish.Nombre}</h5>
+                          <p class="text-muted mb-1">${dish.Descripcion}</p>
+                          <span class="fw-bold">$${dish.Precio}</span>
+                        </div>
+                      </div>`;
+        }
+      });
+  
+      return { Comidas: Comidas, Bebidas: Bebidas, Postres: Postres };
+    } catch (error) {
+      return `Lo sentimos, error al cargar el menú: ${error.message}`;
+    }
+  }
+  
+  
 
   static async modMenu(Id, Nombre, Descripcion, Precio, Imagen) {
     try {
@@ -138,10 +192,9 @@ class Menu {
   static deleteImage(imagePath) {
     fs.unlink(imagePath, (err) => {
       if (err) {
-        console.error(`Error al borrar la imagen: ${err.message}`);
-        return;
+        return `Error al borrar la imagen: ${err.message}`;
       }
-      console.log("Imagen borrada con éxito");
+      return true
     });
   }
 
@@ -154,10 +207,15 @@ class Menu {
       const menuData = Menu.docs[0].data();
       const imagePath = path.join(
         __dirname,
-        "public/img_recetas",
+        "../public/img_recetas",
         menuData.Imagen
       );
-      deleteImage(imagePath);
+      const isDelete =this.deleteImage(imagePath);
+      
+      if(isDelete != true){
+        return isDelete
+      }
+
       const batch = db.batch();
       Menu.forEach((doc) => {
         batch.delete(doc.ref);
@@ -165,8 +223,9 @@ class Menu {
       await batch.commit();
       return true;
     } catch (error) {
-      return error.message();
-    }
+      console.error("Error al crear el documento:", error);
+      return `Error al crear el documento: ${error.message}`;
+    }    
   }
 }
 

@@ -1,8 +1,14 @@
-<%- include('inc/header') %>
-<%- include('inc/navbar') %>
+<%- include('inc/header') %> <%- include('inc/navbar') %>
 
- <!-- Hero Section -->
- <header class="hero-section position-relative" style="background-image: url('img/home.jpg'); background-size: cover; background-position: center;">
+<!-- Hero Section -->
+<header
+  class="hero-section position-relative"
+  style="
+    background-image: url('img/home.jpg');
+    background-size: cover;
+    background-position: center;
+  "
+>
   <div class="container">
     <div class="row align-items-center text-center text-md-start">
       <!-- Left Content -->
@@ -15,7 +21,11 @@
   </div>
   <!-- Background Image -->
   <div class="hero-bg position-absolute w-100 h-100">
-    <img src="https://th.bing.com/th/id/R.9e0f40a2190806747addd2971b639347?rik=93Kx1QI3jFrvRg&pid=ImgRaw&r=0" alt="Background" class="img-fluid">
+    <img
+      src="https://th.bing.com/th/id/R.9e0f40a2190806747addd2971b639347?rik=93Kx1QI3jFrvRg&pid=ImgRaw&r=0"
+      alt="Background"
+      class="img-fluid"
+    />
   </div>
 </header>
 
@@ -24,23 +34,34 @@
   <div class="container position-relative">
     <!-- Texto de Fondo -->
     <h1 class="background-text">EXPERIENCIA</h1>
-    
+
     <div class="row align-items-center">
       <!-- Imagen Izquierda -->
       <div class="col-md-4 text-center">
-        <img src="https://th.bing.com/th/id/OIP.y5v7yOFnuRbY87YfVYNexwHaFa?rs=1&pid=ImgDetMain" alt="Fish Dish" class="img-fluid rounded-circle shadow">
+        <img
+          src="https://th.bing.com/th/id/OIP.y5v7yOFnuRbY87YfVYNexwHaFa?rs=1&pid=ImgDetMain"
+          alt="Fish Dish"
+          class="img-fluid rounded-circle shadow"
+        />
       </div>
 
       <!-- Texto Central -->
       <div class="col-md-4 text-center text-md-start">
         <p class="subtitle">DESDE 2022</p>
         <h2 class="fw-bold">MARAVILLOSA EXPERIENCIA GASTRONÓMICA Y COMIDA.</h2>
-        <p class="mt-3 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis nisl nec mauris tincidunt, in maximus risus vehicula.</p>
+        <p class="mt-3 text-muted">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+          convallis nisl nec mauris tincidunt, in maximus risus vehicula.
+        </p>
       </div>
 
       <!-- Imagen Derecha -->
       <div class="col-md-4 text-center">
-        <img src="https://th.bing.com/th/id/OIP.y5v7yOFnuRbY87YfVYNexwHaFa?rs=1&pid=ImgDetMain" alt="Pasta Dish" class="img-fluid rounded-circle shadow">
+        <img
+          src="https://th.bing.com/th/id/OIP.y5v7yOFnuRbY87YfVYNexwHaFa?rs=1&pid=ImgDetMain"
+          alt="Pasta Dish"
+          class="img-fluid rounded-circle shadow"
+        />
       </div>
     </div>
   </div>
@@ -72,43 +93,15 @@
 
     <!-- Listado de Platillos -->
     <div class="row gy-4 menu-content">
-      <!-- Platillos de Comida -->
-      <div class="col-md-6 d-flex align-items-center menu-item food">
-        <img src="https://arc-anglerfish-arc2-prod-abccolor.s3.amazonaws.com/public/FJQXM5JUU5FFHDDCNZLOSDZGSY.jpg" alt="Huevo cocido ecológico" class="menu-img rounded-circle me-3">
-        <div>
-          <h5>Huevo cocido ecológico</h5>
-          <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
-          <span class="fw-bold">$12.00</span>
-        </div>
-      </div>
-      <div class="col-md-6 d-flex align-items-center menu-item food">
-        <img src="https://arc-anglerfish-arc2-prod-abccolor.s3.amazonaws.com/public/FJQXM5JUU5FFHDDCNZLOSDZGSY.jpg" alt="Hamburguesa de pechuga de pollo" class="menu-img rounded-circle me-3">
-        <div>
-          <h5>Hamburguesa de pechuga de pollo</h5>
-          <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
-          <span class="fw-bold">$10.00</span>
-        </div>
-      </div>
-
-      <!-- Platillos de Bebidas -->
-      <div class="col-md-6 d-flex align-items-center menu-item drinks d-none">
-        <img src="https://example.com/bebida1.jpg" alt="Jugo Natural" class="menu-img rounded-circle me-3">
-        <div>
-          <h5>Jugo Natural</h5>
-          <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
-          <span class="fw-bold">$5.00</span>
-        </div>
-      </div>
-
-      <!-- Platillos de Postres -->
-      <div class="col-md-6 d-flex align-items-center menu-item desserts d-none">
-        <img src="https://example.com/postre1.jpg" alt="Helado de Vainilla" class="menu-img rounded-circle me-3">
-        <div>
-          <h5>Helado de Vainilla</h5>
-          <p class="text-muted mb-1">Lorem ipsum ha sido la industria.</p>
-          <span class="fw-bold">$7.00</span>
-        </div>
-      </div>
+      <% if (Menu.Comidas) { %> 
+        <%- Menu.Comidas %> 
+      <% } %>
+      <% if (Menu.Bebidas) { %> 
+        <%-Menu.Bebidas %> 
+      <% } %> 
+      <% if (Menu.Postres) { %> 
+        <%- Menu.Postres %> 
+      <% } %>
     </div>
   </div>
 </section>
@@ -122,16 +115,26 @@
     </div>
 
     <!-- Carrusel -->
-    <div id="popularDishesCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+    <div
+      id="popularDishesCarousel"
+      class="carousel slide mt-4"
+      data-bs-ride="carousel"
+    >
       <div class="carousel-inner">
         <!-- Item 1 -->
         <div class="carousel-item active">
           <div class="row justify-content-center">
             <div class="col-md-3 text-center">
-              <img src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0" alt="Dish 1" class="dish-img mb-3">
+              <img
+                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
+                alt="Dish 1"
+                class="dish-img mb-3"
+              />
               <h5 class="fw-bold">Medium spicy chips</h5>
               <p class="text-muted small">Cheese • Capsicum • Basil</p>
-              <span class="badge bg-danger text-white fs-6 py-2 px-3">JUST $35.00</span>
+              <span class="badge bg-danger text-white fs-6 py-2 px-3"
+                >JUST $35.00</span
+              >
             </div>
           </div>
         </div>
@@ -139,10 +142,16 @@
         <div class="carousel-item">
           <div class="row justify-content-center">
             <div class="col-md-3 text-center">
-              <img src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0" alt="Dish 2" class="dish-img mb-3">
+              <img
+                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
+                alt="Dish 2"
+                class="dish-img mb-3"
+              />
               <h5 class="fw-bold">Appeteaser blatter</h5>
               <p class="text-muted small">Cucumber • Mushroom • Basil</p>
-              <span class="badge bg-danger text-white fs-6 py-2 px-3">JUST $25.00</span>
+              <span class="badge bg-danger text-white fs-6 py-2 px-3"
+                >JUST $25.00</span
+              >
             </div>
           </div>
         </div>
@@ -150,21 +159,37 @@
         <div class="carousel-item">
           <div class="row justify-content-center">
             <div class="col-md-3 text-center">
-              <img src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0" alt="Dish 3" class="dish-img mb-3">
+              <img
+                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
+                alt="Dish 3"
+                class="dish-img mb-3"
+              />
               <h5 class="fw-bold">Chicken bites</h5>
               <p class="text-muted small">Capsicum • Paneer • Parmesan</p>
-              <span class="badge bg-danger text-white fs-6 py-2 px-3">JUST $30.00</span>
+              <span class="badge bg-danger text-white fs-6 py-2 px-3"
+                >JUST $30.00</span
+              >
             </div>
           </div>
         </div>
       </div>
 
       <!-- Controles -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#popularDishesCarousel" data-bs-slide="prev">
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#popularDishesCarousel"
+        data-bs-slide="prev"
+      >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#popularDishesCarousel" data-bs-slide="next">
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#popularDishesCarousel"
+        data-bs-slide="next"
+      >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -176,13 +201,19 @@
 <section class="about-section py-5">
   <div class="container text-center">
     <h2 class="section-title">Descubre la Experiencia Lido Grill</h2>
-    <p class="section-subtitle">Todo lo que necesitas saber sobre nosotros y cómo disfrutar nuestra experiencia gastronómica.</p>
+    <p class="section-subtitle">
+      Todo lo que necesitas saber sobre nosotros y cómo disfrutar nuestra
+      experiencia gastronómica.
+    </p>
     <div class="row mt-4">
       <div class="col-md-4">
         <div class="card shadow-sm">
           <div class="card-body">
             <h4 class="text-dark">Sobre el Restaurante</h4>
-            <p>Conoce nuestra historia, especialidades, y el compromiso que nos inspira a ofrecerte lo mejor.</p>
+            <p>
+              Conoce nuestra historia, especialidades, y el compromiso que nos
+              inspira a ofrecerte lo mejor.
+            </p>
             <a href="" class="btn btn-success">Sobre Nosotros</a>
           </div>
         </div>
@@ -191,7 +222,10 @@
         <div class="card shadow-sm">
           <div class="card-body">
             <h4 class="text-dark">Reservar Mesa</h4>
-            <p>¡Haz tu reserva ahora y asegura tu lugar para disfrutar de una experiencia inolvidable!</p>
+            <p>
+              ¡Haz tu reserva ahora y asegura tu lugar para disfrutar de una
+              experiencia inolvidable!
+            </p>
             <a href="reserva" class="btn btn-dark">Reservar Ahora</a>
           </div>
         </div>
@@ -200,7 +234,10 @@
         <div class="card shadow-sm">
           <div class="card-body">
             <h4 class="text-success">Contáctenos</h4>
-            <p>¿Tienes alguna pregunta? Estamos aquí para ayudarte. ¡Contáctanos hoy mismo!</p>
+            <p>
+              ¿Tienes alguna pregunta? Estamos aquí para ayudarte. ¡Contáctanos
+              hoy mismo!
+            </p>
             <a href="contacto" class="btn btn-success">Escríbenos</a>
           </div>
         </div>
@@ -208,7 +245,7 @@
     </div>
   </div>
 </section>
-  
+
 <script src="/js/menu.js"></script>
 
-  <%- include('inc/footer') %>
+<%- include('inc/footer') %>
