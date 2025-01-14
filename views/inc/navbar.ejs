@@ -28,6 +28,11 @@
           <li class="nav-item">
             <button id="userButton" class="btn btn-link nav-link">Hola <%= user.Nombre %></button>
           </li>
+          <li class="nav-item">
+            <a href="/logout">
+              <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Cerra Sesion</button>
+            </a>          
+          </li>
         <% } else { %>
           <li class="nav-item ms-3">
             <a href="/login">
