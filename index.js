@@ -65,10 +65,10 @@ const rutesAdmin = ["gestmenu"];
 // Rutas Cliente
 const rutesClientes = ["perfil"];
 // Rutas Publicas
-const rutesPublicas = ["home", "login", "logout", "menu", "Reserva","contacto"];
+const rutesPublicas = ["home", "login", "logout", "menu", "reserva", "contacto"];
 
 // Rutas GET
-app.get("/:view?", (req, res) => {
+app.get("/:view?", async (req, res) => {
   let view = req.params.view || "home";
   const data = req.session.user || null;
 
@@ -80,36 +80,40 @@ app.get("/:view?", (req, res) => {
     return res.status(404).render("404", { title: "Página no encontrada" });
   }
 
-  if (view == "login") {
+  if (view === "login") {
     if (data == null) {
-      res.render("login", { title: "Inicio de sesion" });
+      return res.render("login", { title: "Inicio de sesión" });
     } else {
-      res.render("home", { title: "Home" });
+      return res.render("home", { title: "Home" });
     }
   }
 
-  if (view == "logout") {
-      res.clearCookie("token_access");
-      res.render('logout');
+  if (view === "logout") {
+    res.clearCookie("token_access");
+    return res.render("logout");
   }
 
+  const menuHtml = await Menu.mostrarMenu();
+
   if (rutesPublicas.includes(view)) {
-    res.render(view, { title: view });
+    return res.render(view, { title: view, menu: menuHtml, user: data });
   } else if (rutesAdmin.includes(view)) {
     if (data && data.Rol === "admin") {
+      return res.render(view, { title: view, menu: menuHtml, user: data });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
   } else if (rutesClientes.includes(view)) {
     if (data && data.Rol === "cliente") {
-      res.render(view, { title: view });
+      return res.render(view, { title: view, menu: menuHtml, user: data });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
   } else {
-    res.status(404).render("404", { title: "Página no encontrada" });
+    return res.status(404).render("404", { title: "Página no encontrada" });
   }
 });
+
 
 // Rutas POST
 app.post("/register", async (req, res) => {
@@ -185,15 +189,22 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/reserva", async (req, res) => {
-  const { Nombre, Correo, Telefono, Fecha, Hora, Personas } = req.body;
-  const isReserva = await Reserva.crearReserva(
-    Nombre,
-    Correo,
-    Telefono,
-    Fecha,
-    Hora,
-    Personas
-  );
+  const { Fecha, Hora, Personas } = req.body;
+  const data = req.session.user || null;
+
+  if (!data) {
+    return res.status(401).json({
+      success: false,
+      message: "Usuario no autenticado",
+      icono: "error",
+      titulo: "Error",
+      texto: "Debe iniciar sesión para realizar una reserva",
+    });
+  }
+
+  const ID = data.Id;
+  const isReserva = await Reserva.crearReserva(Fecha, Hora, Personas , ID);
+
   if (isReserva !== true) {
     res.status(400).json({
       success: false,
@@ -208,20 +219,19 @@ app.post("/reserva", async (req, res) => {
       message: "Reserva realizada correctamente",
       icono: "success",
       titulo: "Enhorabuena",
-      texto:
-        "Reserva realizada correctamente, lo esperamos en la fecha y hora indicada",
+      texto: "Reserva realizada correctamente, lo esperamos en la fecha y hora indicada",
     });
   }
 });
 
 app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
-  const { Nombre, Descripcion, Precio } = req.body;
+  const { Nombre, Descripcion, Precio,Selection } = req.body;
   const Imagen = {
     name: req.file.filename,
     size: req.file.size,
     extension: path.extname(req.file.originalname),
   };
-  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen);
+  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen,Selection);
   if (isMenu !== true) {
     res.status(400).json({
       success: false,
@@ -273,7 +283,7 @@ app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
 });
 
 app.post("/gestMenuD", async (req, res) => {
-  const { Id} = req.body;
+  const {Id} = req.body;
 
   const isMenu = await Menu.delMenu(Id);
   if (isMenu !== true) {
@@ -290,9 +300,7 @@ app.post("/gestMenuD", async (req, res) => {
       message: "Menu registrado",
       icono: "success",
       titulo: "Enhorabuena",
-      texto: "Menu registrado correctamente",
-      Imagen: req.file.filename,
-      id: "123",
+      texto: "Menu registrado correctamente"
     });
   }
 });

@@ -1,25 +1,19 @@
 <%- include('inc/header') %>
 <%- include('inc/navbar') %>
 
+<% if (!user) { %>
+  <script>
+    window.location.href = "/login";
+  </script>
+<% } %>
+
 <section class="reservation-section">
     <div class="container">
         <h2 class="reservation-title">Reserva tu Mesa</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card reservation-card">
-                    <form>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="name" placeholder="Ingresa tu nombre">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Ingresa tu teléfono">
-                        </div>
+                    <form id="reservation-form">
                         <div class="mb-3">
                             <label for="date" class="form-label">Fecha</label>
                             <input type="date" class="form-control" id="date">
@@ -42,6 +36,6 @@
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/public/js/reserva.js"></script>
+<script src="/js/reserva.js"></script>
 
 <%- include('inc/footer') %>

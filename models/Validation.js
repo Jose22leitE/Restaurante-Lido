@@ -132,9 +132,6 @@ class Validation {
       return this.formatValidationErrors(error.errors);
     }
   }
-  
-  
-  
 
   static ValidationImagen(Imagen){
     if(!Imagen) return "La Imagen es requerida";
@@ -143,6 +140,10 @@ class Validation {
     if (Imagen.size > 5000000) return "La imagen es demasiado grande";
     
     return true;
+  }
+  static ValidationMenu(Selection){
+    if(Selection != "Comida" && Selection != "Postre" && Selection != "Bebida") return "lo sentimos ese tipo de menu no existe"; 
+    return true
   }
   
   static formatValidationErrors(errors) {

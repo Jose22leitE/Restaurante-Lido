@@ -1,5 +1,3 @@
-
- <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-absolute w-100">
   <div class="container">
     <!-- Logo -->
@@ -23,16 +21,27 @@
         <li class="nav-item">
           <a class="nav-link" href="menu">Menú</a>
         </li>
-        <li class="nav-item">
-          <button id="reservationButton" class="btn btn-link nav-link">Reserva</button>
-        </li>        
+        <% if (user && user.Nombre) { %>
+          <li class="nav-item">
+            <a href="/reserva" class="nav-link">Reserva</a>
+          </li>
+          <li class="nav-item">
+            <button id="userButton" class="btn btn-link nav-link">Hola <%= user.Nombre %></button>
+          </li>
+        <% } else { %>
+          <li class="nav-item ms-3">
+            <a href="/login">
+            <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Iniciar Sesión / Registrarse</button>
+            </a>
+          </li>
+        <% } %>
       </ul>
+<<<<<<< HEAD
       <div class="ms-3">
         <button href="login" id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Iniciar Sesión / Registrarse</button>
       </div>
+=======
+>>>>>>> 50605845ffd4fb636ca84f4e809a059f8a829529
     </div>
   </div>
 </nav>
-
-
-<script src="/js/navbar.js"></script>

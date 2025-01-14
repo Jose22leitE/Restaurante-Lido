@@ -56,7 +56,7 @@ class User {
         Correo: Correo,
         contraseña: Contraseña,
         Telefono: Telefono,
-        Rol: "admin",
+        Rol: "cliente",
         Id: id
       });
 
@@ -103,12 +103,12 @@ class User {
       }
 
       const Usuario = {
+        Id: userData.Id,
         Nombre: userData.Nombre,
         Correo: userData.Correo,
         Telefono: userData.Telefono,
         Rol: userData.Rol,
       };
-      console.log(Usuario);
       return Usuario;
     } catch (error) {
       return "Error al buscar el usuario:", error;
