@@ -30,7 +30,7 @@ function updateNavbar() {
     userButton.classList.replace("btn-info", "btn-outline-light");
     userButton.classList.replace("btn-warning", "btn-outline-light");
     userButton.onclick = () => {
-      window.location.href = "/login";
+      window.location.href = "login";
     };
   }
 }
@@ -50,7 +50,7 @@ reservationButton.addEventListener("click", () => {
       text: "Los administradores no pueden hacer reservas.",
     });
   } else {
-    window.location.href = "/reserva";
+    window.location.href = "reserva";
   }
 });
 
