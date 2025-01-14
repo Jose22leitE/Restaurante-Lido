@@ -26,7 +26,7 @@
             <a href="/reserva" class="nav-link">Reserva</a>
           </li>
           <li class="nav-item">
-            <button id="userButton" class="btn btn-link nav-link">Hola <%= user.Nombre %></button>
+            <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
           </li>
           <li class="nav-item">
             <a href="/logout">
@@ -44,3 +44,4 @@
     </div>
   </div>
 </nav>
+<%- include('./menu_reserva') %>

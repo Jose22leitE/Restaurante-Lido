@@ -143,8 +143,6 @@ class Menu {
       return `Lo sentimos, error al cargar el menú: ${error.message}`;
     }
   }
-  
-  
 
   static async modMenu(Id, Nombre, Descripcion, Precio, Imagen) {
     try {

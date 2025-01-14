@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 });
 
 // Rutas Admin
-const rutesAdmin = ["gestmenu"];
+const rutesAdmin = ["gestmenu","gestreserva"];
 // Rutas Cliente
 const rutesClientes = ["perfil"];
 // Rutas Publicas
@@ -95,18 +95,20 @@ app.get("/:view?", async (req, res) => {
 
   const menuHtmlhome = await Menu.mostrarMenuHome();
   const menuHtmlgest = await Menu.mostrarMenu();
+  const reservasHtmlUser = await Reserva.mostrarReservasUser(data ? data.Id : null);
+  const reservasHtmlAdmin = await Reserva.mostrarReservasAdmin();
 
   if (rutesPublicas.includes(view)) {
-    return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
+    return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest, reservas: reservasHtmlUser });
   } else if (rutesAdmin.includes(view)) {
     if (data && data.Rol === "admin") {
-      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
+      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest, reservas: reservasHtmlAdmin });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
   } else if (rutesClientes.includes(view)) {
     if (data && data.Rol === "cliente") {
-      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest });
+      return res.render(view, { title: view, Menu: menuHtmlhome, user: data, menu: menuHtmlgest, reservas: reservasHtmlUser });
     } else {
       return res.render("login", { title: "Inicio de sesión" });
     }
@@ -114,9 +116,6 @@ app.get("/:view?", async (req, res) => {
     return res.status(404).render("404", { title: "Página no encontrada" });
   }
 });
-
-
-
 
 // Rutas POST
 app.post("/register", async (req, res) => {
@@ -207,6 +206,31 @@ app.post("/reserva", async (req, res) => {
 
   const ID = data.Id;
   const isReserva = await Reserva.crearReserva(Fecha, Hora, Personas , ID);
+
+  if (isReserva !== true) {
+    res.status(400).json({
+      success: false,
+      message: "Errores de validación",
+      icono: "error",
+      titulo: "Error",
+      texto: isReserva,
+    });
+  } else {
+    res.json({
+      success: "success",
+      message: "Reserva realizada correctamente",
+      icono: "success",
+      titulo: "Enhorabuena",
+      texto: "Reserva realizada correctamente, lo esperamos en la fecha y hora indicada",
+    });
+  }
+});
+
+app.post("/reservaA", async (req, res) => {
+  const {ID} = req.body;
+  const dato = "Confimada"
+
+  const isReserva = await Reserva.modificarReserva(ID,dato);
 
   if (isReserva !== true) {
     res.status(400).json({
