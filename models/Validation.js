@@ -149,7 +149,11 @@ class Validation {
     }
     return true;
   }
-  
+
+  static ValidationStatus(Status){
+    if(Status != "Aceptada" && Status != "Denegada") return "Ese estatus no existe";
+    return true
+  }
   
   static formatValidationErrors(errors) {
     if (!Array.isArray(errors)) {

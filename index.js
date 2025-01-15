@@ -227,10 +227,10 @@ app.post("/reserva", async (req, res) => {
 });
 
 app.post("/reservaA", async (req, res) => {
-  const {ID} = req.body;
-  const dato = "Confimada"
+  const {Id,Dato} = req.body;
+  console.log(Id,Dato);
 
-  const isReserva = await Reserva.modificarReserva(ID,dato);
+  const isReserva = await Reserva.modificarReserva(Id,Dato);
 
   if (isReserva !== true) {
     res.status(400).json({
@@ -337,3 +337,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+Reserva.borrarReservasVencidas();
