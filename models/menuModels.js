@@ -144,47 +144,90 @@ class Menu {
     }
   }
 
-  static async modMenu(Id, Nombre, Descripcion, Precio, Imagen) {
+  static async modMenu(Id, Nombre, Descripcion, Precio, Imagen, Selection) {
     try {
+      let isValid = [];
+  
+      isValid.push(Validation.ValidationDescripcion(Descripcion));
+      isValid.push(Validation.ValidationPrecio(Precio));
+      isValid.push(Validation.ValidationImagen(Imagen));
+      isValid.push(Validation.ValidationMenu(Selection));
+  
       let Mod = {};
-
-      if (Nombre !== "") {
-        Mod.Nombre = Nombre;
+  
+      if (Nombre) {
+        const nombreValid = Validation.ValidationNombre(Nombre);
+        if (nombreValid === true) {
+          Mod.Nombre = Nombre;
+        } else {
+          isValid.push(nombreValid);
+        }
       }
-      if (Descripcion && Descripcion.trim() !== "") {
-        Mod.Descripcion = Descripcion;
+      if (Descripcion) {
+        const DescripcionValid = Validation.ValidationDescripcion(Descripcion);
+        if (DescripcionValid === true) {
+          Mod.Descripcion = Descripcion;
+        } else {
+          isValid.push(DescripcionValid);
+        }
       }
       if (Precio !== "") {
-        Mod.Precio = Precio;
+        const PrecioValid = Validation.ValidationPrecio(Precio);
+        if (PrecioValid === true) {
+          Mod.Precio = Precio;
+        } else {
+          isValid.push(PrecioValid);
+        }
       }
       if (Imagen.name) {
-        Mod.Imagen = Imagen.name;
+        const ImagenValid = Validation.ValidationImagen(Imagen.name);
+        if (ImagenValid === true) {
+          Mod.Imagen = Imagen.name;
+        } else {
+          isValid.push(ImagenValid);
+        }
       }
-
-      // Verificar si hay campos para actualizar
-      if (Object.keys(Mod).length === 0) {
-        return "No hay campos para actualizar";
+      if (Selection) {
+        const SelectionValid = Validation.ValidationMenu(Selection);
+        if (SelectionValid === true) {
+          Mod.Selection = Selection;
+        } else {
+          isValid.push(SelectionValid);
+        }
       }
+  
+      let Errors = [];
 
+      isValid.forEach((Element) => {
+        if (Element !== true) {
+          Errors.push(Element);
+        }
+      });
+
+      if (Errors.length > 0) {
+        return Errors;
+      }
+  
       // Búsqueda del menú
       const Menu = await db.collection("Menu").where("Id", "==", Id).get();
-
+  
       if (Menu.empty) {
         return "Lo sentimos, este menú no existe";
       }
-
+  
       // Actualización del documento en la base de datos
       const batch = db.batch();
       Menu.forEach((doc) => {
         batch.update(doc.ref, Mod);
       });
       await batch.commit();
-
+  
       return true;
     } catch (error) {
-      return `Error al modificar el menú: ${error}`;
+      return `Error al modificar el menú: ${error.message}`;
     }
   }
+  
 
   // Función para borrar una imagen
   static deleteImage(imagePath) {

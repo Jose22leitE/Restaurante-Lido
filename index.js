@@ -279,13 +279,16 @@ app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
 });
 
 app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
-  const { Nombre, Descripcion, Precio } = req.body;
-  const Imagen = {
-    name: req.file.filename,
-    size: req.file.size,
-    extension: path.extname(req.file.originalname),
-  };
-  const isMenu = await Menu.newMenu(Nombre, Descripcion, Precio, Imagen);
+  const {Id, Nombre, Descripcion, Precio,Selection } = req.body;
+  let Imagen;
+  if(Imagen != null){
+      Imagen = {
+      name: req.file.filename,
+      size: req.file.size,
+      extension: path.extname(req.file.originalname),
+    };
+  }
+  const isMenu = await Menu.modMenu(Id, Nombre, Descripcion, Precio, Imagen, Selection);
   if (isMenu !== true) {
     res.status(400).json({
       success: false,
