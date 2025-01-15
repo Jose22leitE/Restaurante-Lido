@@ -18,6 +18,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#about">Acerca de Nosotros</a>
         </li>
+<<<<<<< HEAD
         <li class="nav-item">
           <a class="nav-link" href="menu">Menú</a>
         </li>
@@ -37,6 +38,15 @@
               <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
             </li>
           <% } %>
+=======
+        <% if (user && user.Nombre) { %>
+          <li class="nav-item">
+            <a href="/reserva" class="nav-link">Reserva</a>
+          </li>
+          <li class="nav-item">
+            <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
+          </li>
+>>>>>>> 65966d18e525911dfe1b1f2f20c6b2af9a2def3b
           <li class="nav-item">
             <a href="/logout">
               <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Cerrar Sesión</button>
