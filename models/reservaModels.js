@@ -103,7 +103,7 @@ class Reserva {
       let reservaHTML = "";
       let i = 0;
       reservasData.forEach((reserva) => {
-        if (reserva.Status == "En espera") {
+        if (reserva.Status == "En Espera") {
           i++;
           reservaHTML += `
                           <div class="card" style="width: 18rem;">

@@ -21,22 +21,31 @@
         <li class="nav-item">
           <a class="nav-link" href="menu">Menú</a>
         </li>
-        <% if (user && user.Nombre) { %>
-          <li class="nav-item">
-            <a href="/reserva" class="nav-link">Reserva</a>
-          </li>
-          <li class="nav-item">
-            <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
-          </li>
+        <% if (user && user.Rol) { %>
+          <% if (user.Rol === 'admin') { %>
+            <li class="nav-item">
+              <a href="/gestmenu" class="nav-link">Gestionar Menú</a>
+            </li>
+            <li class="nav-item">
+              <a href="/gestreserva" class="nav-link">Gestionar Reservas</a>
+            </li>
+          <% } else if (user.Rol === 'cliente') { %>
+            <li class="nav-item">
+              <a href="/reserva" class="nav-link">Reserva</a>
+            </li>
+            <li class="nav-item">
+              <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
+            </li>
+          <% } %>
           <li class="nav-item">
             <a href="/logout">
-              <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Cerra Sesion</button>
-            </a>          
+              <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Cerrar Sesión</button>
+            </a>
           </li>
         <% } else { %>
           <li class="nav-item ms-3">
             <a href="/login">
-            <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Iniciar Sesión / Registrarse</button>
+              <button id="userButton" class="btn btn-outline-light" data-logged-in="false" data-role="guest">Iniciar Sesión / Registrarse</button>
             </a>
           </li>
         <% } %>
