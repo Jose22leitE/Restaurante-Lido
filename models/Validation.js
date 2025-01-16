@@ -97,7 +97,9 @@ class Validation {
       Personas: z
         .number({ message: "Verifique el número de Personas" })
         .int({ message: "El número de Personas debe ser un entero" })
-        .positive({ message: "El número de Personas debe ser positivo" }),
+        .positive({ message: "El número de Personas debe ser positivo" })
+        .min(1,{message: "1 Persona minimo para reservar"})
+        .max(5,{message: "5 Personas maximo para reservar"})
     });
     try {
       schema.parse({ Personas });

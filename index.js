@@ -138,10 +138,10 @@ app.post("/register", async (req, res) => {
   } else {
     res.json({
       success: true,
-      message: `Usuario registrado correctamente, Bienvenido ${Nombre}`,
+      message: `Usuario registrado correctamente, por favor inicie sesion`,
       icono: "success",
       titulo: "Bienvenido",
-      texto: `Usuario registrado correctamente, Bienvenido ${Nombre}`,
+      texto: `Usuario registrado correctamente, por favor inicie sesion`,
     });
   }
 });
@@ -244,10 +244,10 @@ app.post("/reservaA", async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Reserva realizada correctamente",
+      message: "Reserva ha ${Dato} correctamente.",
       icono: "success",
       titulo: "Enhorabuena",
-      texto: "Reserva realizada correctamente, lo esperamos en la fecha y hora indicada",
+      texto: `Reserva ha ${Dato} correctamente.`,
     });
   }
 });
