@@ -1,4 +1,5 @@
-<%- include('inc/header') %> <%- include('inc/navbar') %>
+<%- include('inc/header') %>
+<%- include('inc/navbar') %>
 
 <!-- Hero Section -->
 <header
@@ -99,97 +100,6 @@
       <% if (Menu.Postres) { %> 
         <%- Menu.Postres %> 
       <% } %>
-    </div>
-  </div>
-</section>
-
-<section class="popular-dishes-section py-5">
-  <div class="container">
-    <!-- Título -->
-    <div class="text-center">
-      <p class="text-dark text-uppercase">- Specials Choice -</p>
-      <h2 class="fw-bold">Popular Dishes</h2>
-    </div>
-
-    <!-- Carrusel -->
-    <div
-      id="popularDishesCarousel"
-      class="carousel slide mt-4"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-inner">
-        <!-- Item 1 -->
-        <div class="carousel-item active">
-          <div class="row justify-content-center">
-            <div class="col-md-3 text-center">
-              <img
-                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
-                alt="Dish 1"
-                class="dish-img mb-3"
-              />
-              <h5 class="fw-bold">Medium spicy chips</h5>
-              <p class="text-muted small">Cheese • Capsicum • Basil</p>
-              <span class="badge bg-dark text-white fs-6 py-2 px-3"
-                >JUST $35.00</span
-              >
-            </div>
-          </div>
-        </div>
-        <!-- Item 2 -->
-        <div class="carousel-item">
-          <div class="row justify-content-center">
-            <div class="col-md-3 text-center">
-              <img
-                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
-                alt="Dish 2"
-                class="dish-img mb-3"
-              />
-              <h5 class="fw-bold">Appeteaser blatter</h5>
-              <p class="text-muted small">Cucumber • Mushroom • Basil</p>
-              <span class="badge bg-danger text-white fs-6 py-2 px-3"
-                >JUST $25.00</span
-              >
-            </div>
-          </div>
-        </div>
-        <!-- Item 3 -->
-        <div class="carousel-item">
-          <div class="row justify-content-center">
-            <div class="col-md-3 text-center">
-              <img
-                src="https://th.bing.com/th/id/R.ec48d53b049653050294ed41730a20e3?rik=KmFQuYjYaLTpYA&riu=http%3a%2f%2fwww.franquiciasdecomida.com.mx%2fwp-content%2fuploads%2f2014%2f02%2fnegocio-de-comida-rapida.jpg&ehk=VOyc8eSQs8mUK5i%2bEqA%2b4kDNuveUC%2fX2m82Ce7lzGl0%3d&risl=&pid=ImgRaw&r=0"
-                alt="Dish 3"
-                class="dish-img mb-3"
-              />
-              <h5 class="fw-bold">Chicken bites</h5>
-              <p class="text-muted small">Capsicum • Paneer • Parmesan</p>
-              <span class="badge bg-dark text-white fs-6 py-2 px-3"
-                >JUST $30.00</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controles -->
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#popularDishesCarousel"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#popularDishesCarousel"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
   </div>
 </section>

@@ -67,6 +67,7 @@ const rutesClientes = ["perfil"];
 // Rutas Publicas
 const rutesPublicas = ["home", "login", "logout", "menu", "reserva", "contacto"];
 
+
 // Rutas GET
 app.get("/:view?", async (req, res) => {
   let view = req.params.view || "home";
@@ -90,7 +91,7 @@ app.get("/:view?", async (req, res) => {
 
   if (view === "logout") {
     res.clearCookie("token_access");
-    return res.render("logout");
+    return res.render("logout",{title:"Cerra Sesion"});
   }
 
   const menuHtmlhome = await Menu.mostrarMenuHome();
