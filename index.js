@@ -65,7 +65,7 @@ const rutesAdmin = ["gestmenu","gestreserva"];
 // Rutas Cliente
 const rutesClientes = ["perfil"];
 // Rutas Publicas
-const rutesPublicas = ["home", "login", "logout", "menu", "reserva", "contacto"];
+const rutesPublicas = ["home", "login", "logout", "menu", "reserva", "contacto", "politicaPriv", "acerca"];
 
 // Rutas GET
 app.get("/:view?", async (req, res) => {
