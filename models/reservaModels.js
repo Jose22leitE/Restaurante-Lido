@@ -99,37 +99,49 @@ class Reserva {
       reservas.forEach((doc) => {
         reservasData.push(doc.data());
       });
-
+  
       let reservaHTML = "";
       let i = 0;
-      reservasData.forEach((reserva) => {
-        if (reserva.Status == "En Espera") {
-          i++;
-          reservaHTML += `
-                          <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                              <h5 class="card-title">#${i}</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">Hora: ${reserva.Hora}</h6>
-                              <h6 class="card-subtitle mb-2 text-muted">Fecha: ${reserva.Fecha}</h6>
-                              <p class="card-text">Status: ${reserva.Status}</p>
-                              <button class="btn btn-primary" data-id="${reserva.Id}" onclick="Aceptar(this)">Aceptar</button>
-                              <button class="btn btn-secondary" data-id="${reserva.Id}" onclick="Denegar(this)">Denegada</button>
-                            </div>
-                          </div>
-                        `;
+      for (const reserva of reservasData) {
+        if (reserva.Status === "En Espera") {
+          const userReservations = await db
+            .collection("Usuario")
+            .where("Id", "==", reserva.ID_User)
+            .get();
+          
+          
+          if (!userReservations.empty) {
+            const User = userReservations.docs[0].data();
+            
+            i++;
+            reservaHTML += `
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">#${i}</h5>
+                  <h5 class="card-title">${User.Nombre}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Hora: ${reserva.Hora}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Fecha: ${reserva.Fecha}</h6>
+                  <p class="card-text">Status: ${reserva.Status}</p>
+                  <p class="card-text">N° Personas: ${reserva.Personas}</p>
+                  <button class="btn btn-primary" data-id="${reserva.Id}" onclick="Aceptar(this)">Aceptar</button>
+                  <button class="btn btn-secondary" data-id="${reserva.Id}" onclick="Denegar(this)">Denegar</button>
+                </div>
+              </div>
+            `;
+          }
         }
-      });
-
-      if (reservaHTML == "") {
-        reservaHTML =
-          "<h1>No se han encontrado reservas en estado: En espera</h1>";
       }
-
+  
+      if (reservaHTML === "") {
+        reservaHTML = "<h1>No se han encontrado reservas en estado: En espera</h1>";
+      }
+  
       return reservaHTML;
     } catch (error) {
       return `Lo sentimos, error al cargar las reservas: ${error.message}`;
     }
   }
+  
 
   static async modificarReserva(idInterno, nuevosDatos) {
     try {
