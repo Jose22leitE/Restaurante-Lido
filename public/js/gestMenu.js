@@ -4,16 +4,10 @@ document.getElementById("addDishForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData();
   formData.append("Nombre", document.getElementById("dishName").value);
-  formData.append(
-    "Descripcion",
-    document.getElementById("dishDescription").value
-  );
-  formData.append(
-    "Precio",
-    parseFloat(document.getElementById("dishPrice").value)
-  );
+  formData.append("Descripcion", document.getElementById("dishDescription").value);
+  formData.append("Precio", parseFloat(document.getElementById("dishPrice").value));
   formData.append("Imagen", document.getElementById("dishImage").files[0]);
-  formData.append("Selection", document.getElementById("Selection").value)
+  formData.append("Selection", document.getElementById("Selection").value);
 
   const plato = {
     Nombre: document.getElementById("dishName").value,
@@ -50,7 +44,8 @@ function deleteDish(id) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Id: id }),
-  }).then((res) => res.json())
+  })
+    .then((res) => res.json())
     .then((res) => {
       Swal.fire({
         title: res.titulo,
@@ -72,17 +67,17 @@ function editDish(id) {
         <div class="row mb-3">
           <div class="col-md-6">
             <label for="dishName" class="form-label">Nombre del Plato</label>
-            <input type="text" class="form-control" id="dishName" placeholder="Colocar el nombre del plato" required>
+            <input type="text" class="form-control" id="dishName" placeholder="Colocar el nombre del plato">
           </div>
           <div class="col-md-6">
             <label for="dishDescription" class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="dishDescription" placeholder="Colocar la descripción del plato" required>
+            <input type="text" class="form-control" id="dishDescription" placeholder="Colocar la descripción del plato">
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6">
             <label for="dishPrice" class="form-label">Precio</label>
-            <input type="number" class="form-control" id="dishPrice" placeholder="Colocar el precio del plato" step="0.01" required>
+            <input type="number" class="form-control" id="dishPrice" placeholder="Colocar el precio del plato" step="0.01">
           </div>
           <div class="col-md-6">
             <label for="dishImage" class="form-label">Imagen del Plato</label>
@@ -102,20 +97,20 @@ function editDish(id) {
     </div>
   `;
 
-  // Aquí puedes agregar lógica para cargar los datos del plato existente en el formulario
-  console.log(id);
-  cargarDatosPlato(id);
+  document.getElementById("editDishForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    cargarDatosPlato(id);
+  });
 }
 
 function cargarDatosPlato(id) {
   const formData = new FormData();
   formData.append("Id", id);
-  formData.append("Nombre", document.getElementById("dishName").value);
-  formData.append("Descripcion",document.getElementById("dishDescription").value);
-  formData.append("Precio",parseFloat(document.getElementById("dishPrice").value));
+  formData.append("Nombre", document.getElementById("dishName").value || null);
+  formData.append("Descripcion", document.getElementById("dishDescription").value || null);
+  formData.append("Precio", document.getElementById("dishPrice").value || null);
   formData.append("Imagen", document.getElementById("dishImage").files[0] || null);
-  formData.append("Selection", document.getElementById("Selection").value)
-
+  formData.append("Selection", document.getElementById("Selection").value || null);
 
   fetch("/gestMenuM", {
     method: "POST",
@@ -128,7 +123,7 @@ function cargarDatosPlato(id) {
         text: res.texto,
         icon: res.icono,
         confirmButtonText: "Aceptar",
-      })
+      });
     })
     .catch((error) => console.error("Error:", error));
 }

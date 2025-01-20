@@ -97,7 +97,9 @@ class Validation {
       Personas: z
         .number({ message: "Verifique el número de Personas" })
         .int({ message: "El número de Personas debe ser un entero" })
-        .positive({ message: "El número de Personas debe ser positivo" }),
+        .positive({ message: "El número de Personas debe ser positivo" })
+        .min(1,{message: "1 Persona minimo para reservar"})
+        .max(5,{message: "5 Personas maximo para reservar"})
     });
     try {
       schema.parse({ Personas });
@@ -144,11 +146,24 @@ class Validation {
   
   static ValidationMenu(Selection) {
     const validMenus = ["Comida", "Postre", "Bebida"];
-    if (!validMenus.includes(Selection)) {
-      return "Lo sentimos, ese tipo de menú no existe";
+    const schema = z.object({
+      Selection: z.string({ message: "Verifique la selección del tipo de menú" })
+        .nonempty({ message: "La selección del tipo de menú no puede estar vacía" })
+    });
+  
+    try {
+      // Validar si el tipo de menú es válido
+      if (!validMenus.includes(Selection)) {
+        return "Lo sentimos, ese tipo de menú no existe";
+      }
+  
+      // Validar la selección utilizando el esquema
+      schema.parse({ Selection });
+      return true;
+    } catch (error) {
+      return this.formatValidationErrors(error.errors);
     }
-    return true;
-  }
+  }  
 
   static ValidationStatus(Status){
     if(Status != "Aceptada" && Status != "Denegada") return "Ese estatus no existe";

@@ -144,76 +144,89 @@ class Menu {
     }
   }
 
-  static async modMenu(Id, Nombre, Descripcion, Precio, Imagen, Selection) {
+  static async modMenu(Id = null, Nombre = null, Descripcion = null, Precio = null, Imagen = { name: null }, Selection = null) {
     try {
       let isValid = [];
   
-      isValid.push(Validation.ValidationDescripcion(Descripcion));
-      isValid.push(Validation.ValidationPrecio(Precio));
-      isValid.push(Validation.ValidationImagen(Imagen));
-      isValid.push(Validation.ValidationMenu(Selection));
+      if (Id == null && Nombre == null && Descripcion == null && Precio == null && Imagen.name == null && Selection == null) {
+        return "Todos los campos están vacíos";
+      }
   
-      let Mod = {};
+      // Búsqueda del menú
+      let Menu = await db
+        .collection("Menu")
+        .where("Nombre", "==", Nombre)
+        .where("Descripcion", "==", Descripcion)
+        .get();
+      if (!Menu.empty) {
+        return "Lo sentimos, este menú ya está registrado";
+      }
   
       if (Nombre) {
         const nombreValid = Validation.ValidationNombre(Nombre);
-        if (nombreValid === true) {
-          Mod.Nombre = Nombre;
-        } else {
+        if (nombreValid !== true) {
           isValid.push(nombreValid);
         }
       }
       if (Descripcion) {
         const DescripcionValid = Validation.ValidationDescripcion(Descripcion);
-        if (DescripcionValid === true) {
-          Mod.Descripcion = Descripcion;
-        } else {
+        if (DescripcionValid !== true) {
           isValid.push(DescripcionValid);
         }
       }
-      if (Precio !== "") {
+      if (Precio !== null && !isNaN(Precio)) {
+        Precio = parseFloat(Precio);
         const PrecioValid = Validation.ValidationPrecio(Precio);
-        if (PrecioValid === true) {
-          Mod.Precio = Precio;
-        } else {
+        if (PrecioValid !== true) {
           isValid.push(PrecioValid);
         }
       }
-      if (Imagen.name) {
+      if (Imagen && Imagen.name !== null) {
         const ImagenValid = Validation.ValidationImagen(Imagen.name);
-        if (ImagenValid === true) {
-          Mod.Imagen = Imagen.name;
-        } else {
+        if (ImagenValid !== true) {
           isValid.push(ImagenValid);
         }
       }
-      if (Selection) {
+      if (Selection !== null) {
         const SelectionValid = Validation.ValidationMenu(Selection);
-        if (SelectionValid === true) {
-          Mod.Selection = Selection;
-        } else {
+        if (SelectionValid !== true) {
           isValid.push(SelectionValid);
         }
       }
   
+      if (Id === null) {
+        return "El id del producto no se encuentra";
+      }
+  
       let Errors = [];
-
+  
       isValid.forEach((Element) => {
         if (Element !== true) {
           Errors.push(Element);
         }
       });
-
+  
       if (Errors.length > 0) {
         return Errors;
       }
   
-      // Búsqueda del menú
-      const Menu = await db.collection("Menu").where("Id", "==", Id).get();
+      // Búsqueda de menú
+      Menu = await db.collection("Menu").where("Id", "==", Id).get();
   
       if (Menu.empty) {
         return "Lo sentimos, este menú no existe";
       }
+  
+      const menuData = Menu.docs[0].data();
+  
+      const Mod = {
+        Nombre: Nombre || menuData.Nombre,
+        Descripcion: Descripcion || menuData.Descripcion,
+        Precio: Precio !== null && !isNaN(Precio) ? Precio : menuData.Precio,
+        Imagen: Imagen && Imagen.name !== null ? Imagen.name : menuData.Imagen,
+        Id: Id || menuData.Id,
+        Tipo: Selection || menuData.Selection
+      };
   
       // Actualización del documento en la base de datos
       const batch = db.batch();
@@ -224,11 +237,18 @@ class Menu {
   
       return true;
     } catch (error) {
+      if(Imagen.name !== null){
+        const imagePath = path.join(
+          __dirname,
+          "../public/img_recetas",
+          Imagen.name
+        );
+        this.deleteImage(imagePath);
+      }
       return `Error al modificar el menú: ${error.message}`;
     }
   }
   
-
   // Función para borrar una imagen
   static deleteImage(imagePath) {
     fs.unlink(imagePath, (err) => {
@@ -238,6 +258,19 @@ class Menu {
       return true
     });
   }
+  
+  static buscarImagen(nombreImagen) {
+    const rutaCarpeta = path.join(__dirname, '../public', 'img_recetas');
+    const rutaImagen = path.join(rutaCarpeta, nombreImagen);
+  
+    fs.access(rutaImagen, fs.constants.F_OK, (err) => {
+      if (err) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
 
   static async delMenu(Id) {
     try {
@@ -245,29 +278,36 @@ class Menu {
       if (Menu.empty) {
         return "Lo sentimos, este menú no existe";
       }
-      const menuData = Menu.docs[0].data();
-      const imagePath = path.join(
-        __dirname,
-        "../public/img_recetas",
-        menuData.Imagen
-      );
-      const isDelete =this.deleteImage(imagePath);
+    
+      let isDelete;
       
-      if(isDelete != true){
-        return isDelete
+      const menuData = Menu.docs[0].data();
+      
+      if (this.buscarImagen(menuData.Imagen)) {
+        const imagePath = path.join(__dirname, "../public/img_recetas", menuData.Imagen);
+        isDelete = this.deleteImage(imagePath);
+      } else {
+        isDelete = true;
       }
-
+  
+      if (isDelete !== true) {
+        return isDelete;
+      }
+  
       const batch = db.batch();
       Menu.forEach((doc) => {
         batch.delete(doc.ref);
       });
+      
       await batch.commit();
+      
       return true;
     } catch (error) {
       console.error("Error al crear el documento:", error);
       return `Error al crear el documento: ${error.message}`;
-    }    
+    }
   }
+  
 }
 
 module.exports = Menu;

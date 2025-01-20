@@ -67,6 +67,7 @@ const rutesClientes = ["perfil"];
 // Rutas Publicas
 const rutesPublicas = ["home", "login", "logout", "menu", "reserva", "contacto", "politicaPriv", "acerca"];
 
+
 // Rutas GET
 app.get("/:view?", async (req, res) => {
   let view = req.params.view || "home";
@@ -90,7 +91,7 @@ app.get("/:view?", async (req, res) => {
 
   if (view === "logout") {
     res.clearCookie("token_access");
-    return res.render("logout");
+    return res.render("logout",{title:"Cerra Sesion"});
   }
 
   const menuHtmlhome = await Menu.mostrarMenuHome();
@@ -137,10 +138,10 @@ app.post("/register", async (req, res) => {
   } else {
     res.json({
       success: true,
-      message: `Usuario registrado correctamente, Bienvenido ${Nombre}`,
+      message: `Usuario registrado correctamente, por favor inicie sesion`,
       icono: "success",
       titulo: "Bienvenido",
-      texto: `Usuario registrado correctamente, Bienvenido ${Nombre}`,
+      texto: `Usuario registrado correctamente, por favor inicie sesion`,
     });
   }
 });
@@ -243,10 +244,10 @@ app.post("/reservaA", async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Reserva realizada correctamente",
+      message: "Reserva ha ${Dato} correctamente.",
       icono: "success",
       titulo: "Enhorabuena",
-      texto: "Reserva realizada correctamente, lo esperamos en la fecha y hora indicada",
+      texto: `Reserva ha ${Dato} correctamente.`,
     });
   }
 });
@@ -277,18 +278,31 @@ app.post("/gestMenuA", upload.single("Imagen"), async (req, res) => {
     });
   }
 });
-
 app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
-  const {Id, Nombre, Descripcion, Precio,Selection } = req.body;
-  let Imagen;
-  if(Imagen != null){
-      Imagen = {
+  const { Id, Nombre, Descripcion, Precio, Selection } = req.body;
+  let Imagen = null;
+
+  if (req.file) {
+    Imagen = {
       name: req.file.filename,
       size: req.file.size,
       extension: path.extname(req.file.originalname),
     };
   }
+
+  // Verificar si no se ha ingresado ningún campo
+  if (!Id && !Nombre && !Descripcion && !Precio && !Selection && !Imagen) {
+    return res.status(400).json({
+      success: false,
+      message: "No hay ningún campo ingresado",
+      icono: "error",
+      titulo: "Error",
+      texto: "No hay ningún campo ingresado",
+    });
+  }
+
   const isMenu = await Menu.modMenu(Id, Nombre, Descripcion, Precio, Imagen, Selection);
+
   if (isMenu !== true) {
     res.status(400).json({
       success: false,
@@ -300,18 +314,20 @@ app.post("/gestMenuM", upload.single("Imagen"), async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Menu Eliminado",
+      message: "Menú modificado",
       icono: "success",
       titulo: "Excelente",
-      texto: "Menu eliminado correctamente"
+      texto: "Menú modificado correctamente",
     });
   }
 });
+
 
 app.post("/gestMenuD", async (req, res) => {
   const {Id} = req.body;
 
   const isMenu = await Menu.delMenu(Id);
+  console.log(isMenu);
   if (isMenu !== true) {
     res.status(400).json({
       success: false,
