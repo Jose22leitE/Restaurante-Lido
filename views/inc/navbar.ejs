@@ -1,56 +1,55 @@
 <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark position-fixed">
-    <!-- Logo -->
-    <a class="navbar-brand mx-5" href="/home">
-      <img src="/public/img/logo.jpg" alt="Restaurant Logo" width="40" height="40" class="d-inline-block align-text-center">
-      Lido Grill
-    </a>
-    <!-- Navbar Toggler for Mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Navbar Links -->
-    <div class="collapse d-flex navbar-collapse justify-content-end align-items-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">Home</a>
-        </li>
-        <% if (user && user.Rol) { %>
-          <% if (user.Rol === 'admin') { %>
-            <li class="nav-item">
-              <a href="/gestmenu" class="nav-link">Gestionar Menú</a>
-            </li>
-            <li class="nav-item">
-              <a href="/gestreserva" class="nav-link">Gestionar Reservas</a>
-            </li>
-          <% } else if (user.Rol === 'cliente') { %>
-            <li class="nav-item">
-              <a href="/reserva" class="nav-link">Reserva</a>
-            </li>
-            <li class="nav-item">
-              <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
-            </li>
-          <% } %>
-          <a class="nav-link active" aria-current="page" href="home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/acerca">Acerca de Nosotros</a>
-        </li>
-        <% if (user && user.Nombre) { %>
+  <!-- Logo -->
+  <a class="navbar-brand mx-5" href="/home">
+    <img src="/img/logo.jpg" alt="Restaurant Logo" width="40" height="40" class="d-inline-block align-text-center">
+    Lido Grill
+  </a>
+  <!-- Navbar Toggler for Mobile -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Navbar Links -->
+  <div class="collapse d-flex navbar-collapse justify-content-end align-items-center" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+      </li>
+      <% if (user && user.Rol) { %>
+        <% if (user.Rol === 'admin') { %>
+          <li class="nav-item">
+            <a href="/gestmenu" class="nav-link">Gestionar Menú</a>
+          </li>
+          <li class="nav-item">
+            <a href="/gestreserva" class="nav-link">Gestionar Reservas</a>
+          </li>
+        <% } else if (user.Rol === 'cliente') { %>
           <li class="nav-item">
             <a href="/reserva" class="nav-link">Reserva</a>
           </li>
           <li class="nav-item">
             <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
           </li>
-          <li class="nav-item">
-            <a href="/logout" class="nav-link">Cerrar sesion</a>
-          </li>
-        <% } else { %>
-          <li class="nav-item">
-            <a href="/login" class="nav-link">Inicio Sesion / Registro</a>
-          </li>
         <% } %>
-      </ul>
+      <% } %>
+      <li class="nav-item">
+        <a class="nav-link" href="/acerca">Acerca de Nosotros</a>
+      </li>
+      <% if (user && user.Nombre) { %>
+        <li class="nav-item">
+          <a href="/reserva" class="nav-link">Reserva</a>
+        </li>
+        <li class="nav-item">
+          <button id="userButton" class="btn btn-link nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sus reservas</button>
+        </li>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Cerrar sesión</a>
+        </li>
+      <% } else { %>
+        <li class="nav-item">
+          <a href="/login" class="nav-link">Inicio Sesión / Registro</a>
+        </li>
+      <% } %>
+    </ul>
   </div>
 </nav>
 <%- include('./menu_reserva') %>

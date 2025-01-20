@@ -244,7 +244,7 @@ app.post("/reservaA", async (req, res) => {
   } else {
     res.json({
       success: "success",
-      message: "Reserva ha ${Dato} correctamente.",
+      message: `Reserva ha ${Dato} correctamente.`,
       icono: "success",
       titulo: "Enhorabuena",
       texto: `Reserva ha ${Dato} correctamente.`,
