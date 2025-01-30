@@ -831,12 +831,16 @@ main {
 }
 
 .highlighted-image {
-  max-width: 100%;
-  height: auto;
+  max-width: 70%; /* Ajusta el ancho para que no sea demasiado grande */
+  height: 350px; /* Ajusta la altura exacta */
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+  display: block; /* Asegura que la imagen se comporte como un bloque */
+  margin-left: auto; /* Centrar horizontalmente */
+  margin-right: auto;
 }
+
 
 .content-section {
   padding: 40px 20px;
